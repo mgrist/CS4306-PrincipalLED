@@ -3,6 +3,6 @@
 ## Wiki
 
 ## Contributers
--Matthew Grist
--Khalil Brown
--Jamar Washington
+- Matthew Grist
+- Khalil Brown
+- Jamar Washington
