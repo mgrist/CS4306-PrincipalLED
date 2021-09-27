@@ -1,1 +1,8 @@
-# CS4306-PrincipalLED
+# Principal LED Software
+
+## Wiki
+
+## Contributers
+-Matthew Grist
+-Khalil Brown
+-Jamar Washington
