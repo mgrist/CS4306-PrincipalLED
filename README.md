@@ -2,7 +2,7 @@
 
 ## Wiki
 
-## Contributers
+## Contributors
 - Matthew Grist
 - Khalil Brown
 - Jamar Washington
