@@ -14,7 +14,7 @@ app.use(express.urlencoded({ limit : "30mb", extended: true }));
 app.use(cors());
 
 // connection URL derived from MongoDB Atlas cloud server
-const CONNECTION_URL = "mongodb+srv://mgrist:Chevy-nina0398@pled.p977a.mongodb.net/sandwich?retryWrites=true&w=majority";
+const CONNECTION_URL = "mongodb+srv://mgrist:ofhwtOyg2vauLGY4@pled.p977a.mongodb.net/sandwich?retryWrites=true&w=majority";
 const PORT = process.env.PORT || 5000;
 
 // connects to the specified database URL above with port. If connects successfully, logs a server running message
