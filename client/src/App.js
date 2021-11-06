@@ -1,14 +1,13 @@
 import React from "react";
+import OrderTable from './components/workOrders/orderTable.js';
+import DenseAppBar from './components/workOrders/appBar.js';
 
 const App = () => {
     return (
         <div>
-            <button>I 8888</button>
-            <h1>App       
-            </h1>
-            
+            <DenseAppBar color="primary" position="static" />
+            <OrderTable />
         </div>
-        
     );
 }
 
