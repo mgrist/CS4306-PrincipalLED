@@ -4,6 +4,7 @@ import { Box, Collapse, IconButton, Table, TableBody, Typography } from '@mui/ma
 import { TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import './orderTable.css';
 
 function createData(name, calories, fat, carbs, protein, price) {
   return {
@@ -119,7 +120,7 @@ const rows = [
 
 export default function OrderTable() {
   return (
-    <TableContainer component={Paper}>
+    <TableContainer className="table" component={Paper}>
       <Table aria-label="order table">
         <TableHead>
           <TableRow>

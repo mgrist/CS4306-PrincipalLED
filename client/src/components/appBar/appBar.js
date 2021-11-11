@@ -12,7 +12,7 @@ export default function AppBar() {
     return (
         <Navbar bg="dark" variant="dark">
         <Nav>
-            <Navbar.Brand id="logowrapper" href="#home"><Image className="logo" src={Logo}/></Navbar.Brand>
+            <Navbar.Brand id="logowrapper" href="/home"><Image className="logo" src={Logo}/></Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
             <Nav.Link className="links" href="#home">Work Orders</Nav.Link>
