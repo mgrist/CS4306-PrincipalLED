@@ -33,6 +33,7 @@ export default function AppBar() {
             </div>
             <div>       
                 <Routes>
+                    <Route path="/" element={<Home />} />
                     <Route path="/home" element={<Home />} />
                     <Route path="/WorkOrder" element={<Workorder />} />
                     <Route path="/report" element={<Report />} />
