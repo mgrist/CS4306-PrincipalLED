@@ -18,8 +18,8 @@ export default function AppBar() {
                 <Navbar.Brand as={Link} to={"/home"} id="logowrapper"><Image className="logo" src={Logo}/></Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
-                <Nav.Link as={Link} to={"/WorkOrder"}>Work Orders</Nav.Link>
-                <Nav.Link as={Link} to={"/report"}>Report</Nav.Link>
+                <Nav.Link className="links" as={Link} to={"/WorkOrder"}>Work Orders</Nav.Link>
+                <Nav.Link className="links" as={Link} to={"/report"}>Report</Nav.Link>
                 <NavDropdown className="links" title="Settings" id="basic-nav-dropdown">
                     <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                     <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
@@ -33,11 +33,12 @@ export default function AppBar() {
             </div>
             <div>       
                 <Routes>
+                    <Route path="/" element={<Home />} />
                     <Route path="/home" element={<Home />} />
                     <Route path="/WorkOrder" element={<Workorder />} />
                     <Route path="/report" element={<Report />} />
                 </Routes>
-                </div>
+            </div>
         </Router>
     );
 }
