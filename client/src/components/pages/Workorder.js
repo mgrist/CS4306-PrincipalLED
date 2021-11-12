@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Container, InputGroup, Form, FormControl, Col, Button } from "react-bootstrap";
-import Counter from "./ComponentsInPages/Counter";
+import Counter from "../counter/Counter";
 
 export default class Workorder extends Component{
     render(){
@@ -58,6 +58,7 @@ export default class Workorder extends Component{
                 />
                 <Counter></Counter>
             </InputGroup>
+            
             </Col>
 
             <Col>
