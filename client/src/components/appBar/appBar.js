@@ -5,7 +5,7 @@ import Logo from '../../images/led2.png';
 import 'bootstrap/dist/css/bootstrap.css';
 import './appBar.css';
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
-import Workorder from '../pages/Workorder';
+import Workorder from '../pages/newOrder/newOrder';
 import Report from '../pages/Report';
 import Home from    '../pages/Home';
 

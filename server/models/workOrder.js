@@ -2,10 +2,19 @@ import mongoose from 'mongoose';
 
 const workOrderSchema = mongoose.Schema({
     id: Number,
-    wo_number: String,
-    bom_number: String,
+    wo_number: {
+        type: String,
+        required: true
+    },
+    bom_number: {
+        type: String,
+        required: true
+    },
     bom_description: String,
-    product_id: Number,
+    product_id: {
+        type: Number,
+        required: true
+    },
     stage_id: Number,
     created_at: {
         type: Date,

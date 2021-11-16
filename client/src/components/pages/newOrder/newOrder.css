@@ -1,0 +1,15 @@
+.center {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    align-content: space-around;
+    margin: auto;
+    width: 55%;
+    height: 20%;
+    padding-top: 20px;
+}
+
+.inWrap {
+    margin-left: auto;
+    width: 50%;
+}
