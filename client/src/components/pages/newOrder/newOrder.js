@@ -52,16 +52,17 @@ export default function AppBar() {
         
         <ThemeProvider theme={theme} >
         
+        <h3 className='center'>Add New Work Order</h3>
+
         <div className='center'>
         <div className='inWrap' style={{marginLeft: 'unset'}}>
-          <h5>Product</h5>
+          <h6>Product</h6>
           <TextField
             id="filled-select-currency"
             select
-            label="Select"
+            label="Product"
             value={currency}
             onChange={handleChange}
-            helperText="Select the product"
             variant="filled"
             style={{ width: '100%'}}
           >
@@ -74,14 +75,12 @@ export default function AppBar() {
         </div>
 
         <div className='inWrap' style={{ width: '45%'}}>
-          <h5>Stage</h5>
+          <h6>Stage</h6>
           <TextField
             id="stage"
             select
-            label="Select"
-            value={currency}
+            label="Stage"
             onChange={handleChange}
-            helperText="Select the stage"
             variant="filled"
             style={{ width: '100%'}}
           >
@@ -96,7 +95,7 @@ export default function AppBar() {
 
         <div className='center'>
         <div className='inWrap' style={{width: '20%', marginLeft: 'unset'}}>
-          <h5>Quantity Completed</h5>
+          <h6>Quantity Completed</h6>
           <TextField
             id="filled-number"
             label="Number"
@@ -110,7 +109,7 @@ export default function AppBar() {
           </div>
 
           <div className='inWrap' style={{width: '20%'}}>  
-          <h5>Quantity Defective</h5>
+          <h6>Quantity Defective</h6>
           <TextField
             id="filled-number"
             label="Number"
@@ -124,14 +123,12 @@ export default function AppBar() {
           </div>
 
           <div className='inWrap'>
-          <h5>Defect Type</h5>
+          <h6>Defect Type</h6>
           <TextField
             id="filled-select-currency"
             select
-            label="Select"
-            value={currency}
+            label="Defect"
             onChange={handleChange}
-            helperText="Select the defect reason"
             variant="filled"
             style={{ width: '100%'}}
           >
@@ -145,12 +142,12 @@ export default function AppBar() {
         </div>
 
         <div className='center'>
-          <div className='inWrap' style={{width: '20%', marginLeft: 'unset'}}>
-            <h5>Operator</h5>
+          <div className='inWrap' style={{width: '30%', marginLeft: 'unset'}}>
+            <h6>Operator</h6>
             <TextField
               id="filled-helperText"
               label="Initials"
-              helperText="Enter Operator Initials"
+              helperText="Enter operator initials or name"
               variant="filled"
               style={{width: '100%'}}
             />

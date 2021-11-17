@@ -3,12 +3,10 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 
 import orderRoutes from './routes/workOrders.js';
-import completionRoutes from './routes/completions.js';
 
 const app = express();
 
 app.use('/work-orders', orderRoutes);
-app.use('/completions', completionRoutes);
 
 app.use(express.json({ limit : "30mb", extended: true }));
 app.use(express.urlencoded({ limit : "30mb", extended: true }));

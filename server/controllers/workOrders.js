@@ -1,6 +1,7 @@
 import workOrder from "../models/workOrder.js";
 // https://www.restapitutorial.com/httpstatuscodes.html
 
+// gets all the work orders from workOrder table, returns as json.
 export const getOrders = async (req, res) =>  {
     try {
         const workOrders = await workOrder.find();
@@ -11,6 +12,8 @@ export const getOrders = async (req, res) =>  {
     }
 }
 
+// creates a new work order and adds it to workOrder table
+// also outputs added work order as json file.
 export const createOrder = async (req, res) => {
     const order = req.body;
 
