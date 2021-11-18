@@ -6,12 +6,12 @@ import 'bootstrap/dist/css/bootstrap.css';
 import './appBar.css';
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import Workorder from '../pages/newOrder/newOrder';
-import Report from '../pages/Report';
+import Report from '../pages/Report/Report';
 import Home from    '../pages/Home';
-import Products from '../pages/Product';
+import Products from '../pages/Product/Product';
 import Stages from '../pages/stages/Stages.js';
-import DefactReason from '../pages/DefactReason';
-import Operator from '../pages/Operator';
+import DefactReason from '../pages/DefactReason/DefactReason';
+import Operator from '../pages/Operator/Operator';
 
 
 export default function AppBar() {
