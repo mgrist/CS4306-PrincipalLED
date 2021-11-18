@@ -1,10 +1,8 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { Box, Collapse, IconButton, Table, TableBody, Typography } from '@mui/material';
-import { TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
+import { Box, Collapse, IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography,Paper } from '@mui/material/';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import './orderTable.css';
 
 function createData(name, calories, fat, carbs, protein, price) {
   return {
@@ -54,7 +52,7 @@ function Row(props) {
         <TableCell align="right">{row.protein}</TableCell>
       </TableRow>
       <TableRow>
-        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan = {6}>
+        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
               <Typography variant="h6" gutterBottom component="div">
@@ -120,7 +118,7 @@ const rows = [
 
 export default function OrderTable() {
   return (
-    <TableContainer className="table" component={Paper}>
+    <TableContainer component={Paper}>
       <Table aria-label="order table">
         <TableHead>
           <TableRow>

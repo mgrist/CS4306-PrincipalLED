@@ -1,6 +1,6 @@
 import React from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Box, TextField, MenuItem } from '@mui/material';
+import { Box, TextField, MenuItem, Button } from '@mui/material';
 import './newOrder.css';
 
 const currencies = [
@@ -151,9 +151,25 @@ export default function AppBar() {
               variant="filled"
               style={{width: '100%'}}
             />
-            </div>
+            </div>  
         </div>
-        </ThemeProvider>
-      </div>
+
+        <div className='center'>
+          <div className='inWrap' style={{width: '30%', marginLeft: 'unset'}}>
+
+            <Button variant="contained" color="success">
+             cancel
+            </Button>
+          </div>
+    
+          <div className='right'>
+
+            <Button variant="contained" color="success">
+              save
+            </Button>
+          </div>
+        </div>
+      </ThemeProvider>
+    </div>
     );
 }
