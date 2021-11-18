@@ -9,7 +9,7 @@ import Workorder from '../pages/newOrder/newOrder';
 import Report from '../pages/Report';
 import Home from    '../pages/Home';
 import Products from '../pages/Product';
-import Stages from '../pages/Stages';
+import Stages from '../pages/stages/Stages.js';
 import DefactReason from '../pages/DefactReason';
 import Operator from '../pages/Operator';
 

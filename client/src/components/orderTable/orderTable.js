@@ -120,7 +120,8 @@ const rows = [
 
 export default function OrderTable() {
   return (
-    <TableContainer className="table" component={Paper}>
+    <div className="table">
+    <TableContainer  component={Paper}>
       <Table aria-label="order table">
         <TableHead>
           <TableRow>
@@ -139,5 +140,6 @@ export default function OrderTable() {
         </TableBody>
       </Table>
     </TableContainer>
+    </div>
   );
 }

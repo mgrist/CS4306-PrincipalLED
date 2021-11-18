@@ -37,7 +37,7 @@ const theme = createTheme({
   },
 });
 
-export default function AppBar() {
+export default function OrderForm() {
     const [currency, setCurrency] = React.useState('EUR');
 
     const handleChange = (event) => {
@@ -161,7 +161,7 @@ export default function AppBar() {
         </div>
 
         <div className='center'>
-          <div className='inWrap' style={{width: '30%', marginLeft: '75%'}}>
+          <div className='inWrap' style={{width: '30%', position: 'absolute', right: '7%'}}>
 
             <Button  
             color="secondary"
@@ -171,7 +171,7 @@ export default function AppBar() {
             </Button>
           </div>
     
-          <div className='right'>
+          <div style={{position: 'absolute', right: '0'}}>
 
             <Button 
             color="success"
