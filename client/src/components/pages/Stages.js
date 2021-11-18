@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 
-export default class Report extends Component{
+export default class Stages extends Component{
     render(){
         return(
-            <div>Report page</div>
+            <div>Stages page</div>
         );
     }
 

@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 
-export default class Report extends Component{
+export default class Operator extends Component{
     render(){
         return(
-            <div>Report page</div>
+            <div>Operator page</div>
         );
     }
 
