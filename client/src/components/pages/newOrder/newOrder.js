@@ -2,6 +2,8 @@ import React from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Box, TextField, MenuItem, Button } from '@mui/material';
 import './newOrder.css';
+import SaveIcon from '@mui/icons-material/Save';
+import CancelIcon from '@mui/icons-material/Cancel';
 
 const currencies = [
     {
@@ -27,6 +29,10 @@ const theme = createTheme({
   palette: {
     primary: {
       main: '#53BA4D',
+    },
+
+    secondary: {
+      main: '#D22B2B'
     }
   },
 });
@@ -155,16 +161,22 @@ export default function AppBar() {
         </div>
 
         <div className='center'>
-          <div className='inWrap' style={{width: '30%', marginLeft: 'unset'}}>
+          <div className='inWrap' style={{width: '30%', marginLeft: '75%'}}>
 
-            <Button variant="contained" color="success">
+            <Button  
+            color="secondary"
+            startIcon={<CancelIcon />}
+            variant="contained">
              cancel
             </Button>
           </div>
     
           <div className='right'>
 
-            <Button variant="contained" color="success">
+            <Button 
+            color="success"
+            startIcon={<SaveIcon />}
+            variant="contained">
               save
             </Button>
           </div>
