@@ -161,8 +161,7 @@ export default function OrderForm() {
         </div>
 
         <div className='center'>
-          <div className='inWrap' style={{width: '30%', position: 'absolute', right: '7%'}}>
-
+          <div className='inWrap button'>
             <Button  
             color="secondary"
             startIcon={<CancelIcon />}
