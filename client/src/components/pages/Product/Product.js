@@ -1,10 +1,15 @@
-import React, { Component } from "react";
+import React from "react";
+import "./Product.css";
 
-export default class Product extends Component{
-    render(){
+
+
+export default function Product(){
+    
         return(
-            <div>Product page</div>
+            <div>
+               Product page
+            </div>
         );
-    }
+    
 
 }
