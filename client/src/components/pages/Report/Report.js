@@ -75,7 +75,7 @@ export default function ColumnGroupingTable() {
                       {data.map((column)=>{
                         const value = row[column.age];
                         return  (<TableCell key={column.id} align={column.align}>
-                          {column.format && typeof value === 'number'
+                          {column.id && typeof value === 'number'
                             ? column.format(value)
                             : value}
                        </TableCell>);
