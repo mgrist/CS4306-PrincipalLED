@@ -6,6 +6,7 @@ import orderRoutes from './routes/workOrders.js';
 
 const app = express();
 
+//localhost.com:5000/work-orders
 app.use('/work-orders', orderRoutes);
 
 app.use(express.json({ limit : "30mb", extended: true }));

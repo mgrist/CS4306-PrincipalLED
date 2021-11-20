@@ -13,3 +13,7 @@
 .links {
     margin-left: 5%;
 }
+
+.drop-downs:active {
+    background-color: #53BA4D;
+}
