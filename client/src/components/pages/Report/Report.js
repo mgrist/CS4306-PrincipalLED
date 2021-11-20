@@ -7,7 +7,8 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import data from './ReportData.json'
+import './Report.css';
+//import data from './ReportData.json'
 
 
 const columns = [
@@ -29,6 +30,31 @@ const columns = [
   },
 ];
 
+const data = [
+  { id: '1', 
+    "gender": "1", 
+    "age": 22,
+    "height": 170      
+  },
+
+  { "id": "2", 
+      "gender": "2", 
+      "age": 33,
+      "height": 313      
+    },
+    { "id": "3", 
+      "gender": "3", 
+      "age": 44,
+      "height": 133      
+    },
+
+  { "id": "4", 
+    "gender": "4", 
+    "age": 55,
+    "height": 2321      
+  }
+]
+
 export default function ColumnGroupingTable() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -48,8 +74,8 @@ export default function ColumnGroupingTable() {
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
-              <TableCell align="center" colSpan={4}>
-                Report Page
+              <TableCell classname = 'center' align="left" colSpan={4}>
+                <h3>Report Page</h3>
               </TableCell>
               </TableRow>
               <TableRow>
@@ -72,10 +98,10 @@ export default function ColumnGroupingTable() {
                 return (
                   <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
 
-                      {data.map((column)=>{
-                        const value = row[column.age];
+                      {columns.map((column)=>{
+                        const value = row[column.id];
                         return  (<TableCell key={column.id} align={column.align}>
-                          {column.id && typeof value === 'number'
+                          {column.format && typeof value === 'number'
                             ? column.format(value)
                             : value}
                        </TableCell>);
@@ -86,6 +112,8 @@ export default function ColumnGroupingTable() {
               })}
           </TableBody>
         </Table>
+
+
       </TableContainer>
       <TablePagination
         rowsPerPageOptions={[10, 25, 100]}
