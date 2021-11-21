@@ -1,7 +1,6 @@
 import mongoose from 'mongoose';
 
 const stagesSchema = mongoose.Schema({
-    id: Number,
     label: String,
     description: String,
     order: Number,

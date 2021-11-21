@@ -1,8 +1,10 @@
 import mongoose from 'mongoose';
 
 const scrapReasonsSchema = mongoose.Schema({
-    id: Number,
-    label: String,
+    label: {
+        type: String,
+        required: true
+    },
     description: String,
     created_at: {
         type: Date,

@@ -1,11 +1,26 @@
 import mongoose from 'mongoose';
 
 const scrapsSchema = mongoose.Schema({
-    id: Number,
-    wo_id: String,
-    scrap_reason_id: Number,
-    quantity: Number,
-    operator_initials: String,
+    work_order_id: {
+        type: String,
+        required: true
+    },
+    scrap_reason_id: {
+        type: String,
+        required: true
+    },
+    quantity: {
+        type: Number,
+        required: true
+    },
+    stage_id: {
+        type: String,
+        required: true
+    },
+    operator_initials: {
+        type: String,
+        required: true
+    },
     created_at: {
         type: Date,
         default: new Date()

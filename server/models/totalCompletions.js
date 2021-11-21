@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const completionsSchema = mongoose.Schema({
+const totalCompletionsSchema = mongoose.Schema({
     wo_id: {
         type: String,
         required: true
@@ -8,10 +8,6 @@ const completionsSchema = mongoose.Schema({
     quantity: {
         type: Number,
         default: 0
-    },
-    operator_initials: {
-        type: String,
-        required: true
     },
     stage_id: {
         type: String,
@@ -27,6 +23,6 @@ const completionsSchema = mongoose.Schema({
     }
 });
 
-const completions = mongoose.model('completions', completionsSchema);
+const totalCompletions = mongoose.model('totalCompletions', totalCompletionsSchema);
 
-export default completions;
+export default totalCompletions;

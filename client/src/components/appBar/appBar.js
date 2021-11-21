@@ -21,13 +21,13 @@ import ViewWorkOrder from '../pages/ViewWorkOrder/ViewWorkOrder';
 export default function AppBar() {
     return (
         <Router>
-            <div>
-            <Navbar bg="dark" variant="dark">
+            <div className="navBarWrapper">
+            <Navbar bg="dark" variant="dark" style={{width: '100%'}}>
             <Nav>
                 <Navbar.Brand as={Link} to={"/home"} id="logowrapper"><Image className="logo" src={Logo}/></Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
-                <Nav.Link className="links" as={Link} to={"/AddOrder"}>Add Orders</Nav.Link>
+                <Nav.Link className="links" as={Link} to={"/AddOrder"}>View Orders</Nav.Link>
                 <Nav.Link className="links" as={Link} to={"/report"}>Report</Nav.Link>
                 <NavDropdown className="links" href="/Setting" title="Settings" id="basic-nav-dropdown">
                     <NavDropdown.Item as={Link} className="drop-downs" to={"Setting/WorkOrder"}>Work Order</NavDropdown.Item>
@@ -35,25 +35,25 @@ export default function AppBar() {
                     <NavDropdown.Item as={Link} className="drop-downs" to={"Setting/Stages"}>Stages</NavDropdown.Item>
                     <NavDropdown.Item as={Link} className="drop-downs" to={"Setting/Defact_Reason"}>Defect Reasons</NavDropdown.Item>
                     <NavDropdown.Item as={Link} className="drop-downs" to={"Setting/Operator"}>Operator</NavDropdown.Item>
-
                 </NavDropdown>
                 </Navbar.Collapse>
-
-                <Button  
-            color="secondary"
-            startIcon={<AddIcon />}
-            >
-            </Button>
-
+            </Nav>
             <Button  
             color="secondary"
+            id="ref-bttn"
             sx={{ zIndex: 'tooltip' }}
-            startIcon={<RefreshIcon />}
             >
+                <RefreshIcon />
             </Button>
-
-            </Nav>
+            
+            <Button  
+            color="secondary"
+            id="add-bttn"
+            >
+                <AddIcon />
+            </Button>
             </Navbar>
+
             </div>
             <div>       
                 <Routes>

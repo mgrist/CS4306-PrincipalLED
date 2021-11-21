@@ -17,3 +17,26 @@
 .drop-downs:active {
     background-color: #53BA4D;
 }
+
+.navBarWrapper {
+    width: 100%;
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+}
+
+#add-bttn {
+    background-color: #3490DC;
+    color: white;
+    height: 40px;
+    margin-left: 2%;
+    margin-right: 4%;
+}
+
+#ref-bttn {
+    background-color: #FFED4A;
+    color: black;
+    width: 30px;
+    height: 40px;
+    margin-left: auto;
+}

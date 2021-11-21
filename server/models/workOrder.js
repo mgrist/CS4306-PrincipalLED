@@ -1,21 +1,18 @@
 import mongoose from 'mongoose';
 
 const workOrderSchema = mongoose.Schema({
-    id: Number,
     wo_number: {
-        type: String,
-        required: true
-    },
-    bom_number: {
-        type: String,
-        required: true
-    },
-    bom_description: String,
-    product_id: {
         type: Number,
         required: true
     },
-    stage_id: Number,
+    wo_quantity: {
+        type: Number,
+        required: true
+    },
+    product_id: {
+        type: String,
+        required: true
+    },
     created_at: {
         type: Date,
         default: new Date()
@@ -24,10 +21,6 @@ const workOrderSchema = mongoose.Schema({
         type: Date,
         default: new Date()
     },
-    archived_at: {
-        type: Date,
-        default: new Date()
-    }
 });
 
 const workOrder = mongoose.model('workOrder', workOrderSchema);
