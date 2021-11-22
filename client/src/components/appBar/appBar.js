@@ -8,7 +8,7 @@ import RefreshIcon from '@mui/icons-material/Refresh';
 
 import './appBar.css';
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
-import Report from '../pages/report/Report';
+import Report from '../pages/Report/Report';
 import Home from    '../pages/Home';
 import Products from '../pages/products/product';
 import OrderForm from '../pages/newOrder/newOrder'
@@ -50,6 +50,7 @@ export default function AppBar() {
             <Button  
             color="secondary"
             id="add-bttn"
+            onClick={() =>  window.location.href='/AddOrder'}
             >
                 <AddIcon />
             </Button>
