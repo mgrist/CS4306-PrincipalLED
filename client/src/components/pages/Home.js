@@ -4,7 +4,9 @@ import OrderTable from "../orderTable/orderTable";
 export default class Home extends Component{
     render(){
         return(
-            <OrderTable />
+            <div>
+                <OrderTable />
+            </div>
         );
     }
 

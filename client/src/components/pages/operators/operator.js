@@ -8,7 +8,7 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import {  ThemeProvider, createTheme } from '@mui/material/styles';
-import './Operator.css';
+import './operator.css';
 
 const columns = [
   { id: 'name', label: 'name', Width: 100},

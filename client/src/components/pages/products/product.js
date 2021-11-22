@@ -7,26 +7,32 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import './DefactReason.css';
+import './product.css';
 
 const columns = [
-  { id: 'name', label: 'Label', minWidth: 170},
-
+  { id: 'name', label: 'Part Number', minWidth: 170 },
+  { id: 'code', label: 'Label', minWidth: 100 },
   {
     id: 'population',
-    label: 'Description',
-    minWidth: 100,
+    label: 'Population',
+    minWidth: 170,
     align: 'right',
     format: (value) => value.toLocaleString('en-US'),
   },
   {
     id: 'size',
-    label: 'Action',
-    minWidth: 100,
+    label: 'Enable',
+    minWidth: 170,
     align: 'right',
     format: (value) => value.toLocaleString('en-US'),
   },
-  
+  {
+    id: 'density',
+    label: 'Action',
+    minWidth: 170,
+    align: 'right',
+    format: (value) => value.toFixed(2),
+  },
 ];
 
 function createData(name, code, population, size) {
@@ -70,7 +76,7 @@ export default function Product() {
       <TableContainer sx={{ maxHeight: 880 }}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
-            <TableRow className = 'center'><h3>Defect Reasons </h3></TableRow>
+            <TableRow className = 'center'><h3>Work Order Products </h3></TableRow>
             <TableRow>
               
               {columns.map((column) => (

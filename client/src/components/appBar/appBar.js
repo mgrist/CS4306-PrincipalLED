@@ -8,13 +8,13 @@ import RefreshIcon from '@mui/icons-material/Refresh';
 
 import './appBar.css';
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
-import Report from '../pages/Report/Report';
+import Report from '../pages/report/Report';
 import Home from    '../pages/Home';
-import Products from '../pages/Product/Product';
+import Products from '../pages/products/product';
 import OrderForm from '../pages/newOrder/newOrder'
-import Stages from '../pages/stages/Stages.js';
-import DefactReason from '../pages/DefactReason/DefactReason';
-import Operator from '../pages/Operator/Operator';
+import Stages from '../pages/stages/stage.js';
+import DefactReason from '../pages/defects/defect';
+import Operator from '../pages/operators/operator';
 import ViewWorkOrder from '../pages/ViewWorkOrder/ViewWorkOrder';
 
 
@@ -41,6 +41,7 @@ export default function AppBar() {
             <Button  
             color="secondary"
             id="ref-bttn"
+            onClick={() => window.location.reload(false)}
             sx={{ zIndex: 'tooltip' }}
             >
                 <RefreshIcon />
