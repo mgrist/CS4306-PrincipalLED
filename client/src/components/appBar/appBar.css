@@ -26,11 +26,10 @@
 }
 
 #add-bttn {
+    padding: auto;
     background-color: #3490DC;
     color: white;
     height: 40px;
-    margin-left: 2%;
-    margin-right: 2%;
 }
 
 #ref-bttn {

@@ -27,7 +27,7 @@ export default function AppBar() {
                 <Navbar.Brand as={Link} to={"/home"} id="logowrapper"><Image className="logo" src={Logo}/></Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
-                <Nav.Link className="links" as={Link} to={"/AddOrder"}>View Orders</Nav.Link>
+                <Nav.Link className="links" as={Link} to={"/home"}>View Orders</Nav.Link>
                 <Nav.Link className="links" as={Link} to={"/report"}>Report</Nav.Link>
                 <NavDropdown className="links" href="/Setting" title="Settings" id="basic-nav-dropdown">
                     <NavDropdown.Item as={Link} className="drop-downs" to={"Setting/WorkOrder"}>Work Order</NavDropdown.Item>
@@ -47,13 +47,14 @@ export default function AppBar() {
                 <RefreshIcon />
             </Button>
             
+            <Link to="/AddOrder" style={{ marginLeft: '2%', marginRight: '2%'}}>
             <Button  
             color="secondary"
             id="add-bttn"
-            onClick={() =>  window.location.href='/AddOrder'}
             >
                 <AddIcon />
             </Button>
+            </Link>
             </Navbar>
 
             </div>
