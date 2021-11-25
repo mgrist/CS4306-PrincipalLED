@@ -7,6 +7,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
+import BarChart from './BarChart';
 import './Report.css';
 //import data from './ReportData.json'
 
@@ -69,14 +70,16 @@ export default function ColumnGroupingTable() {
   };
 
   return (
+                
+
     <Paper sx={{ width: '100%' }}>
+      <div  align="left"><h3>Report Page</h3></div>
+      <BarChart/>
       <TableContainer sx={{ maxHeight: '100%' }}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
-              <TableCell classname = 'center' align="left" colSpan={4}>
-                <h3>Report Page</h3>
-              </TableCell>
+              
               </TableRow>
               <TableRow>
               {columns.map((column) => (
