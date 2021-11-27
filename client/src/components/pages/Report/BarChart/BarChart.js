@@ -7,7 +7,7 @@ import Chart from 'chart.js/auto'
 
 export default function BarChart() {
     return(
-      <div>
+      <div className="ChartBar">
         <Bar
         data= {{
           labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
@@ -33,8 +33,9 @@ export default function BarChart() {
               borderWidth: 1
           }]
       }}
-      height={40}
-      width={60}
+      height={30}
+      width={100}
+      
       />
       </div>
     )
