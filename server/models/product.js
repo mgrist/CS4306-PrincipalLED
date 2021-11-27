@@ -3,9 +3,13 @@ import mongoose from 'mongoose';
 const productsSchema = mongoose.Schema({
     part_number: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
-    label: String,
+    label: {
+        type: String,
+        unique: true
+    },
     enabled: {
         type: Boolean,
         deafult: true
@@ -14,7 +18,7 @@ const productsSchema = mongoose.Schema({
         type: Number,
         default: 0.00,
         set: function (v) {
-            return Number((Math.abs(v) * 100).toPrecision(15));
+            return Number((Math.round(100 * v) / 100));
             }
     },
     created_at: {

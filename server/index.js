@@ -1,13 +1,17 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
+import bodyParser from "body-parser";
 
-import orderRoutes from './routes/workOrders.js';
+import orderRoutes from './routes/workOrders.route.js';
+import productRoutes from './routes/products.route.js';
 
 const app = express();
+app.use(bodyParser.json())
 
 //localhost.com:5000/work-orders
 app.use('/work-orders', orderRoutes);
+app.use('/products', productRoutes);
 
 app.use(express.json({ limit : "30mb", extended: true }));
 app.use(express.urlencoded({ limit : "30mb", extended: true }));

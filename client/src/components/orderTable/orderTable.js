@@ -123,14 +123,14 @@ export default function OrderTable() {
     <div className="table">
     <TableContainer  component={Paper}>
       <Table aria-label="order table">
-        <TableHead>
+        <TableHead style={{ backgroundColor: '#212529'}}>
           <TableRow>
             <TableCell />
-            <TableCell>WO Number</TableCell>
-            <TableCell align="right">Product</TableCell>
-            <TableCell align="right">Stage&nbsp;</TableCell>
-            <TableCell align="right">Completed&nbsp;</TableCell>
-            <TableCell align="right">Defects&nbsp;</TableCell>
+            <TableCell style={{ color: '#ffffff' }}>WO Number</TableCell>
+            <TableCell style={{ color: '#ffffff' }} align="right">Product</TableCell>
+            <TableCell style={{ color: '#ffffff' }} align="right">Quantity&nbsp;</TableCell>
+            <TableCell style={{ color: '#ffffff' }} align="right">Completed&nbsp;</TableCell>
+            <TableCell style={{ color: '#ffffff' }} align="right">Defects&nbsp;</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
