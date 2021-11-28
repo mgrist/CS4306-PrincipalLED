@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const completionsSchema = mongoose.Schema({
     wo_id: {
-        type: String,
+        type: Number,
         required: true
     },
     quantity: {
@@ -14,7 +14,7 @@ const completionsSchema = mongoose.Schema({
         required: true
     },
     stage_id: {
-        type: String,
+        type: Number,
         required: true
     },
     created_at: {

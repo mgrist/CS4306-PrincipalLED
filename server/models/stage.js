@@ -3,11 +3,14 @@ import mongoose from 'mongoose';
 const stagesSchema = mongoose.Schema({
     label: {
         type: String,
+        unique: true,
         required: true
     },
     order: {
         type: Number,
-        required: true
+        required: true,
+        unique: true,
+        min: 0
     },
     created_at: {
         type: Date,

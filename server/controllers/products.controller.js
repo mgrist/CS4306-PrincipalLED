@@ -1,5 +1,6 @@
 import Product from "../models/product.js";
 // https://www.restapitutorial.com/httpstatuscodes.html
+// https://docs.mongodb.com/mongodb-shell/crud/
 
 // gets all the products from product table
 export const getProducts = async (req, res) =>  {

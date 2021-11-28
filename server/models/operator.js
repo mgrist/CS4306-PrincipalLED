@@ -11,8 +11,17 @@ const operatorsSchema = mongoose.Schema({
     },
     initials: {
         type: String,
-        set
+        required: true,
+        unique: true
     },
+    created_at: {
+        type: Date,
+        default: new Date()
+    },
+    updated_at: {
+        type: Date,
+        default: new Date()
+    }   
 });
 
 const operators = mongoose.model('operators', operatorsSchema);
