@@ -8,7 +8,8 @@ import RefreshIcon from '@mui/icons-material/Refresh';
 
 import './appBar.css';
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
-import Report from '../pages/Report/Report';
+import SearchReport from '../pages/Report/SearchReport';
+import Report from '../pages/Report/Reportpage/Report';
 import Home from    '../pages/Home';
 import Products from '../pages/products/product';
 import OrderForm from '../pages/newOrder/newOrder'
@@ -28,7 +29,7 @@ export default function AppBar() {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                 <Nav.Link className="links" as={Link} to={"/home"}>View Orders</Nav.Link>
-                <Nav.Link className="links" as={Link} to={"/report"}>Report</Nav.Link>
+                <Nav.Link className="links" as={Link} to={"/SearchReport"}>Report</Nav.Link>
                 <NavDropdown className="links" href="/Setting" title="Settings" id="basic-nav-dropdown">
                     <NavDropdown.Item as={Link} className="drop-downs" to={"Setting/WorkOrder"}>Work Order</NavDropdown.Item>
                     <NavDropdown.Item as={Link} className="drop-downs" to={"Setting/Products"}>Products</NavDropdown.Item>
@@ -64,7 +65,8 @@ export default function AppBar() {
                     <Route path="/home" element={<Home />} />
                     <Route path="/AddOrder" element={<OrderForm />} />
                     <Route path="Setting/WorkOrder" element={<ViewWorkOrder />} />
-                    <Route path="/report" element={<Report />} />
+                    <Route path="/SearchReport" element={<SearchReport />} />
+                    <Route path="/Report" element={<Report/>}/>
                     <Route path="Setting/Products" element={<Products />} />
                     <Route path="Setting/Stages" element={<Stages />} />
                     <Route path="Setting/Defact_Reason" element={<DefactReason />} />
