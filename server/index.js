@@ -8,6 +8,8 @@ import productRoutes from './routes/products.route.js';
 import stageRoutes from './routes/stages.route.js';
 import operatorRoutes from './routes/operators.route.js';
 import completionRoutes from './routes/completions.route.js';
+import reasonRoutes from './routes/scrapsReasons.route.js';
+import scrapRoutes from './routes/scraps.route.js';
 
 const app = express();
 app.use(bodyParser.json())
@@ -18,6 +20,8 @@ app.use('/products', productRoutes);
 app.use('/stages', stageRoutes);
 app.use('/operators', operatorRoutes);
 app.use('/completions', completionRoutes);
+app.use('/reasons', reasonRoutes);
+app.use('/scraps', scrapRoutes);
 
 app.use(express.json({ limit : "30mb", extended: true }));
 app.use(express.urlencoded({ limit : "30mb", extended: true }));

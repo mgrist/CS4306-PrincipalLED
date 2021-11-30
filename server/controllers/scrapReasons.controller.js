@@ -29,3 +29,17 @@ export const createReason = async (req, res) => {
         res.status(409).json({ message: error.message });
     }
 }
+
+// deletes an existing scrap reason from the scrap reason collection
+export const deleteReason = async (req, res) => {
+    // inReason is the reason to be deleted
+    const inReason = req.body.label;
+
+    try {
+        const reason = await ScrapReason.findOneAndDelete({label: inReason});
+        
+        res.status(200).json(reason._id + " was deleted");
+    } catch (error) {
+        res.status(409).json({ message: error.message });
+    }
+}

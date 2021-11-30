@@ -1,9 +1,9 @@
 import mongoose from 'mongoose';
 
 const scrapsSchema = mongoose.Schema({
-    work_order_id: {
+    work_order_num: {
         type: String,
-        required: true
+        required: true,
     },
     scrap_reason_id: {
         type: String,

@@ -2,7 +2,7 @@ import { React, useState } from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Box, TextField, MenuItem, Button } from '@mui/material';
 import axios from 'axios';
-import './newOrder.css';
+import './newComp.css';
 import SaveIcon from '@mui/icons-material/Save';
 import CancelIcon from '@mui/icons-material/Cancel';
 
@@ -37,8 +37,8 @@ const theme = createTheme({
   },
 });
 
-export default function OrderForm() {
-    const [order, setOrder] = useState({
+export default function CompletionForm() {
+    const [completion, setCompletion] = useState({
       product_id: 0,
       stage_id: 0,
       quantity_completed: 0,
@@ -47,8 +47,8 @@ export default function OrderForm() {
       operator_initials: ''
     });
 
-    const createOrder = () => {
-      axios.post('http://localhost:5000/work-orders/new-order', order);
+    const createCompletion = () => {
+      axios.post('http://localhost:5000/completions/new-completion', completion);
     }
 
     return (
@@ -65,7 +65,7 @@ export default function OrderForm() {
         
         <ThemeProvider theme={theme} >
         
-        <h3 className='center'>Add New Work Order</h3>
+        <h3 className='center'>Add Completions</h3>
 
         <div className='center'>
         <div className='inWrap' style={{marginLeft: 'unset'}}>
@@ -74,7 +74,7 @@ export default function OrderForm() {
             id="filled-select-currency"
             select
             label="Product"
-            value={order.product_id}
+            value={completion.product_id}
             variant="filled"
             style={{ width: '100%'}}
           >
@@ -92,7 +92,7 @@ export default function OrderForm() {
             id="stage"
             select
             label="Stage"
-            value={order.stage_id}
+            value={completion.stage_id}
             variant="filled"
             style={{ width: '100%'}}
           >
@@ -111,11 +111,11 @@ export default function OrderForm() {
           <TextField
             id="filled-number"
             label="Number"
-            value={order.quantity_completed}
+            value={completion.quantity_completed}
             type="number"
             inputProps={{ min: 0 }}
             onChange={(event) => {
-              setOrder({...order, quantity_completed: event.target.value});
+              setCompletion({...completion, quantity_completed: event.target.value});
             }}
             InputLabelProps={{
               shrink: true,
@@ -130,11 +130,11 @@ export default function OrderForm() {
           <TextField
             id="filled-number"
             label="Number"
-            value={order.quantity_defective}
+            value={completion.quantity_defective}
             type="number"
             inputProps={{ min: 0 }}
             onChange={(event) => {
-              setOrder({...order, quantity_defective: event.target.value});
+              setCompletion({...completion, quantity_defective: event.target.value});
             }}
             InputLabelProps={{
               shrink: true,
@@ -150,7 +150,7 @@ export default function OrderForm() {
             id="filled-select-currency"
             select
             label="Defect"
-            value={order.scrap_reason_id}
+            value={completion.scrap_reason_id}
             variant="filled"
             style={{ width: '100%'}}
           >
@@ -169,9 +169,9 @@ export default function OrderForm() {
             <TextField
               id="filled-helperText"
               label="Initials"
-              value={order.operator_initials}
+              value={completion.operator_initials}
               onChange={(event) => {
-                setOrder({...order, operator_initials: event.target.value});
+                setCompletion({...completion, operator_initials: event.target.value});
               }}
               helperText="Enter operator initials or name"
               variant="filled"

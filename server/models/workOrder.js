@@ -3,13 +3,14 @@ import mongoose from 'mongoose';
 const workOrderSchema = mongoose.Schema({
     wo_number: {
         type: Number,
+        unique: [true, "A work order with this number already exists"],
         required: true
     },
     wo_quantity: {
         type: Number,
         required: true
     },
-    product_id: {
+    product_number: {
         type: String,
         required: true
     },
@@ -20,7 +21,7 @@ const workOrderSchema = mongoose.Schema({
     updated_at: {
         type: Date,
         default: new Date()
-    },
+    }
 });
 
 const workOrder = mongoose.model('workOrder', workOrderSchema);

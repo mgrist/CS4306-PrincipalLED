@@ -8,11 +8,11 @@ import RefreshIcon from '@mui/icons-material/Refresh';
 
 import './appBar.css';
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
-import SearchReport from '../pages/Report/SearchReport';
-import Report from '../pages/Report/Reportpage/Report';
-import Home from    '../pages/Home';
+import SearchReport from '../pages/report/SearchReport';
+import Report from '../pages/report/Reportpage/Report';
+import Home from    '../pages/home/home.js';
 import Products from '../pages/products/product';
-import OrderForm from '../pages/newOrder/newOrder'
+import OrderForm from '../pages/home/newComp/newComp.js'
 import Stages from '../pages/stages/stage.js';
 import DefactReason from '../pages/defects/defect';
 import Operator from '../pages/operators/operator';

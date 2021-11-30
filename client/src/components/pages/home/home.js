@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import OrderTable from "../orderTable/orderTable";
+import OrderTable from "../../orderTable/orderTable";
 
 export default class Home extends Component{
     render(){
@@ -9,5 +9,4 @@ export default class Home extends Component{
             </div>
         );
     }
-
 }

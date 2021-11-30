@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 const scrapReasonsSchema = mongoose.Schema({
     label: {
         type: String,
+        unique: true,
         required: true
     },
     description: String,
