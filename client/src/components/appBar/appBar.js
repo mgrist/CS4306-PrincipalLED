@@ -12,15 +12,17 @@ import SearchReport from '../pages/report/SearchReport';
 import Report from '../pages/report/Reportpage/Report';
 import Home from    '../pages/home/home.js';
 import Products from '../pages/products/product';
-import OrderForm from '../pages/home/newComp/newComp.js'
+import CompForm from '../pages/home/newComp/newComp.js'
 import Stages from '../pages/stages/stage.js';
-import DefactReason from '../pages/defects/defect';
+import DefectReason from '../pages/defects/defect';
 import Operator from '../pages/operators/operator';
 import ViewWorkOrder from '../pages/ViewWorkOrder/ViewWorkOrder';
 
+//<Route path="/Setting/WorkOrder/AddOrder" element={<OrderForm />} />
+
 export default function AppBar() {
     // refresh button component
-    function RefButton() {
+    function RefButton(props) {
         return (
             <Button  
                 color="secondary"
@@ -34,10 +36,30 @@ export default function AppBar() {
     }
 
     // add button component
-    function AddButton() {
+    function AddButton(props) {
+        var formUrl;
+        let styling = {
+            marginLeft: '2%', 
+            marginRight: '2%'
+        }
+        // ver value of 2 indicates a form page button
+        if (props.ver === '2') {
+            styling.marginLeft = 'auto';
+        }
+        // if statements tell the plus button which path to send
+        // you too based on your current path.
+        if (props.pathName === "/home") {
+            formUrl = "/AddCompletion";
+        }
+        else if (props.pathName === "/Setting/WorkOrder") {
+            formUrl = "/Setting/WorkOrder/AddOrder";
+        }
+        else
+            formUrl = "/";
         return (
-            <Link to="/AddOrder" style={{ marginLeft: '2%', marginRight: '2%'}}>
-            <Button  
+            <Link to={formUrl} style={styling}>
+            <Button
+            style={props.styleType}  
             color="secondary"
             id="add-bttn"
             onClick={ForceUpdate}
@@ -54,19 +76,28 @@ export default function AppBar() {
         setBttn(bttn => Math.random());
     }
 
-    // determines which buttons to render based on current path
-    function RenderButtons(props) {
-        if (window.location.pathname !== '/AddOrder') {
-            return [<RefButton key='1'/>, <AddButton key='0'/>, ];
+    // determines which buttons to render on screen based on current path
+    function RenderButtons() {
+        let currPath = window.location.pathname;
+        // if we are on home page, display both refresh and add button
+        if (currPath === '/' || currPath === '/home') {
+            return [<RefButton key='1' pathName={currPath}/>, <AddButton key='0' pathName={currPath} ver='1'/> ];
         }
+        // if we are on settings pages, only display add button
+        else if (currPath === '/Setting/WorkOrder' || currPath === '/Setting/Products' 
+        || currPath === '/Setting/Stages' || currPath === '/Setting/Defect_Reason' || currPath === '/Setting/Operator') {
+            return <AddButton key='0' pathName={currPath} ver='2'/>;
+        }
+        // otherwise do not display any buttons
         return null;
     }
+
     return (
         <Router>
             <div className="navBarWrapper">
             <Navbar bg="dark" variant="dark" style={{width: '100%'}}>
             <Nav>
-                <Navbar.Brand as={Link} to={"/home"} id="logowrapper"><Image className="logo" src={Logo}/></Navbar.Brand>
+                <Navbar.Brand as={Link} to={"/home"} id="logowrapper" onClick={ForceUpdate}><Image className="logo" src={Logo}/></Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                 <Nav.Link className="links" as={Link} to={"/home"} onClick={ForceUpdate}>View Orders</Nav.Link>
@@ -75,7 +106,7 @@ export default function AppBar() {
                     <NavDropdown.Item as={Link} className="drop-downs" to={"Setting/WorkOrder"} onClick={ForceUpdate}>Work Order</NavDropdown.Item>
                     <NavDropdown.Item as={Link} className="drop-downs" to={"Setting/Products"} onClick={ForceUpdate}>Products</NavDropdown.Item>
                     <NavDropdown.Item as={Link} className="drop-downs" to={"Setting/Stages"} onClick={ForceUpdate}>Stages</NavDropdown.Item>
-                    <NavDropdown.Item as={Link} className="drop-downs" to={"Setting/Defact_Reason"} onClick={ForceUpdate}>Defect Reasons</NavDropdown.Item>
+                    <NavDropdown.Item as={Link} className="drop-downs" to={"Setting/Defect_Reason"} onClick={ForceUpdate}>Defect Reasons</NavDropdown.Item>
                     <NavDropdown.Item as={Link} className="drop-downs" to={"Setting/Operator"} onClick={ForceUpdate}>Operator</NavDropdown.Item>
                 </NavDropdown>
                 </Navbar.Collapse>
@@ -87,14 +118,14 @@ export default function AppBar() {
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/home" element={<Home />} />
-                    <Route path="/AddOrder" element={<OrderForm />} />
-                    <Route path="Setting/WorkOrder" element={<ViewWorkOrder />} />
-                    <Route path="/SearchReport" element={<SearchReport />} />
+                    <Route path="/AddCompletion" element={<CompForm />} />
+                    <Route path="/Setting/WorkOrder" element={<ViewWorkOrder />} />
+         /          <Route path="/SearchReport" element={<SearchReport />} />
                     <Route path="/Report" element={<Report/>}/>
-                    <Route path="Setting/Products" element={<Products />} />
-                    <Route path="Setting/Stages" element={<Stages />} />
-                    <Route path="Setting/Defact_Reason" element={<DefactReason />} />
-                    <Route path="Setting/Operator" element={<Operator />} />
+                    <Route path="/Setting/Products" element={<Products />} />
+                    <Route path="/Setting/Stages" element={<Stages />} />
+                    <Route path="/Setting/Defect_Reason" element={<DefectReason />} />
+                    <Route path="/Setting/Operator" element={<Operator />} />
                 </Routes>
             </div>
         </Router>
