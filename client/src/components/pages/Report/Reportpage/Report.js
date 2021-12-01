@@ -9,7 +9,7 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import BarChart from '../BarChart/BarChart';
 import './Report.css';
-//import data from './ReportData.json'
+
 
 
 const columns = [

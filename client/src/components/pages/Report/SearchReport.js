@@ -5,7 +5,7 @@ export default function SearchReport() {
 
     return (
         <div>
-            <Link to="/report" >
+            <Link to="/report"  >
                 Hello
                 </Link>
         </div>

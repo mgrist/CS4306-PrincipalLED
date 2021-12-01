@@ -5,11 +5,13 @@ import 'bootstrap/dist/css/bootstrap.css';
 import { Button } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import RefreshIcon from '@mui/icons-material/Refresh';
+import PrintIcon from '@mui/icons-material/Print';
 
 import './appBar.css';
+//import other pages to routes
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import SearchReport from '../pages/report/SearchReport';
-import Report from '../pages/report/Reportpage/Report';
+import ColumnGroupingTable from '../pages/report/reportpage/Report';
 import Home from    '../pages/home/home.js';
 import Products from '../pages/products/product';
 import CompForm from '../pages/home/newComp/newComp.js'
@@ -17,6 +19,11 @@ import Stages from '../pages/stages/stage.js';
 import DefectReason from '../pages/defects/defect';
 import Operator from '../pages/operators/operator';
 import ViewWorkOrder from '../pages/ViewWorkOrder/ViewWorkOrder';
+import AddOrder from '../pages/ViewWorkOrder/addOrder/AddOrder';
+import AddOperator from '../pages/operators/addOperator/addOperator';
+import AddProduct from '../pages/products/addProduct/AddProduct';
+import AddStage from '../pages/stages/addStage/AddStage';
+import AddDefect from '../pages/defects/addDefect/AddDefect';
 
 //<Route path="/Setting/WorkOrder/AddOrder" element={<OrderForm />} />
 
@@ -31,6 +38,26 @@ export default function AppBar() {
                 sx={{ zIndex: 'tooltip' }}
                 >
                     <RefreshIcon />
+            </Button>
+        );
+    }
+
+    // print button component
+    function PrintButton(props){
+        console.log("I am printbtn");
+        let styling = {
+            marginLeft: '2%', 
+            marginRight: '2%'
+        }
+        return(
+            <Button  
+                style={props.styleType}  
+                color="secondary"
+                id="print-bttn"
+                onClick={() => window.print()}
+                sx={{ zIndex: 'tooltip' }}
+            >
+                <PrintIcon />
             </Button>
         );
     }
@@ -53,6 +80,18 @@ export default function AppBar() {
         }
         else if (props.pathName === "/Setting/WorkOrder") {
             formUrl = "/Setting/WorkOrder/AddOrder";
+        }
+        else if (props.pathName === "/Setting/Products") {
+            formUrl = "/Setting/Products/AddProduct";
+        }
+        else if (props.pathName === "/Setting/Stages") {
+            formUrl = "/Setting/Stages/AddStage";
+        }
+        else if (props.pathName === "/Setting/Defect_Reason") {
+            formUrl = "/Setting/Defect_Reason/AddDefect";
+        }
+        else if (props.pathName === "/Setting/Operator") {
+            formUrl = "/Setting/Operator/AddOperator";
         }
         else
             formUrl = "/";
@@ -82,6 +121,9 @@ export default function AppBar() {
         // if we are on home page, display both refresh and add button
         if (currPath === '/' || currPath === '/home') {
             return [<RefButton key='1' pathName={currPath}/>, <AddButton key='0' pathName={currPath} ver='1'/> ];
+        }
+        else if(currPath === '/report'){
+            return [<RefButton key='1' pathName={currPath}/>, <PrintButton pathName={currPath}/>]
         }
         // if we are on settings pages, only display add button
         else if (currPath === '/Setting/WorkOrder' || currPath === '/Setting/Products' 
@@ -118,14 +160,19 @@ export default function AppBar() {
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/home" element={<Home />} />
-                    <Route path="/AddCompletion" element={<CompForm />} />
-                    <Route path="/Setting/WorkOrder" element={<ViewWorkOrder />} />
-         /          <Route path="/SearchReport" element={<SearchReport />} />
-                    <Route path="/Report" element={<Report/>}/>
+                    <Route path="/AddCompletion" element={<CompForm />} />  
+                    <Route path="/SearchReport" element={<SearchReport />} />
+                    <Route path="/Report" element={<ColumnGroupingTable/>}/>
                     <Route path="/Setting/Products" element={<Products />} />
+                    <Route path="/Setting/Products/AddProduct" element={<AddProduct />} />
                     <Route path="/Setting/Stages" element={<Stages />} />
+                    <Route path="/Setting/Stages/AddStage" element={<AddStage />} />
                     <Route path="/Setting/Defect_Reason" element={<DefectReason />} />
+                    <Route path="/Setting/Defect_Reason/AddDefect" element={<AddDefect />} />
                     <Route path="/Setting/Operator" element={<Operator />} />
+                    <Route path="/Setting/Operator/AddOperator" element={<AddOperator />} />
+                    <Route path="/Setting/WorkOrder" element={<ViewWorkOrder />} />
+                    <Route path="/Setting/WorkOrder/AddOrder" element={<AddOrder />} />
                 </Routes>
             </div>
         </Router>
