@@ -1,4 +1,4 @@
-import React from 'react';
+import { React, useState } from 'react';
 import { Navbar, Nav, NavDropdown, Image } from 'react-bootstrap/';
 import Logo from '../../images/led2.png';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -18,8 +18,49 @@ import DefactReason from '../pages/defects/defect';
 import Operator from '../pages/operators/operator';
 import ViewWorkOrder from '../pages/ViewWorkOrder/ViewWorkOrder';
 
-
 export default function AppBar() {
+    // refresh button component
+    function RefButton() {
+        return (
+            <Button  
+                color="secondary"
+                id="ref-bttn"
+                onClick={() => window.location.reload(false)}
+                sx={{ zIndex: 'tooltip' }}
+                >
+                    <RefreshIcon />
+            </Button>
+        );
+    }
+
+    // add button component
+    function AddButton() {
+        return (
+            <Link to="/AddOrder" style={{ marginLeft: '2%', marginRight: '2%'}}>
+            <Button  
+            color="secondary"
+            id="add-bttn"
+            onClick={ForceUpdate}
+            >
+                <AddIcon />
+            </Button>
+            </Link>
+        );
+    }
+    
+    // This does nothing, but re-renders page
+    const [bttn, setBttn] = useState(Math.random());
+    function ForceUpdate() {
+        setBttn(bttn => Math.random());
+    }
+
+    // determines which buttons to render based on current path
+    function RenderButtons(props) {
+        if (window.location.pathname !== '/AddOrder') {
+            return [<RefButton key='1'/>, <AddButton key='0'/>, ];
+        }
+        return null;
+    }
     return (
         <Router>
             <div className="navBarWrapper">
@@ -28,36 +69,19 @@ export default function AppBar() {
                 <Navbar.Brand as={Link} to={"/home"} id="logowrapper"><Image className="logo" src={Logo}/></Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
-                <Nav.Link className="links" as={Link} to={"/home"}>View Orders</Nav.Link>
-                <Nav.Link className="links" as={Link} to={"/SearchReport"}>Report</Nav.Link>
+                <Nav.Link className="links" as={Link} to={"/home"} onClick={ForceUpdate}>View Orders</Nav.Link>
+                <Nav.Link className="links" as={Link} to={"/SearchReport"} onClick={ForceUpdate}>Report</Nav.Link>
                 <NavDropdown className="links" href="/Setting" title="Settings" id="basic-nav-dropdown">
-                    <NavDropdown.Item as={Link} className="drop-downs" to={"Setting/WorkOrder"}>Work Order</NavDropdown.Item>
-                    <NavDropdown.Item as={Link} className="drop-downs" to={"Setting/Products"}>Products</NavDropdown.Item>
-                    <NavDropdown.Item as={Link} className="drop-downs" to={"Setting/Stages"}>Stages</NavDropdown.Item>
-                    <NavDropdown.Item as={Link} className="drop-downs" to={"Setting/Defact_Reason"}>Defect Reasons</NavDropdown.Item>
-                    <NavDropdown.Item as={Link} className="drop-downs" to={"Setting/Operator"}>Operator</NavDropdown.Item>
+                    <NavDropdown.Item as={Link} className="drop-downs" to={"Setting/WorkOrder"} onClick={ForceUpdate}>Work Order</NavDropdown.Item>
+                    <NavDropdown.Item as={Link} className="drop-downs" to={"Setting/Products"} onClick={ForceUpdate}>Products</NavDropdown.Item>
+                    <NavDropdown.Item as={Link} className="drop-downs" to={"Setting/Stages"} onClick={ForceUpdate}>Stages</NavDropdown.Item>
+                    <NavDropdown.Item as={Link} className="drop-downs" to={"Setting/Defact_Reason"} onClick={ForceUpdate}>Defect Reasons</NavDropdown.Item>
+                    <NavDropdown.Item as={Link} className="drop-downs" to={"Setting/Operator"} onClick={ForceUpdate}>Operator</NavDropdown.Item>
                 </NavDropdown>
                 </Navbar.Collapse>
             </Nav>
-            <Button  
-            color="secondary"
-            id="ref-bttn"
-            onClick={() => window.location.reload(false)}
-            sx={{ zIndex: 'tooltip' }}
-            >
-                <RefreshIcon />
-            </Button>
-            
-            <Link to="/AddOrder" style={{ marginLeft: '2%', marginRight: '2%'}}>
-            <Button  
-            color="secondary"
-            id="add-bttn"
-            >
-                <AddIcon />
-            </Button>
-            </Link>
+            <RenderButtons />
             </Navbar>
-
             </div>
             <div>       
                 <Routes>
