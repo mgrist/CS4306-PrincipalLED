@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const completionsSchema = mongoose.Schema({
-    wo_id: {
+    wo_number: {
         type: Number,
         required: true
     },

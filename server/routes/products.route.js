@@ -3,7 +3,7 @@ import { getProducts, getProduct, createProduct, deleteProduct, editProduct } fr
 
 const router = express.Router();
 
-router.get('/', getProducts);
+router.get('/get-products', getProducts);
 router.get('/find-product', getProduct);
 router.post('/new-product', createProduct);
 router.put('/edit-product', editProduct);

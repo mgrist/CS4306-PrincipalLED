@@ -13,6 +13,7 @@ import scrapRoutes from './routes/scraps.route.js';
 
 const app = express();
 app.use(bodyParser.json())
+app.use(cors());
 
 //localhost.com:5000/work-orders
 app.use('/work-orders', orderRoutes);
@@ -25,7 +26,6 @@ app.use('/scraps', scrapRoutes);
 
 app.use(express.json({ limit : "30mb", extended: true }));
 app.use(express.urlencoded({ limit : "30mb", extended: true }));
-app.use(cors());
 
 // connection URL derived from MongoDB Atlas cloud server
 const CONNECTION_URL = "mongodb+srv://mgrist:ofhwtOyg2vauLGY4@pled.p977a.mongodb.net/sandwich?retryWrites=true&w=majority";
