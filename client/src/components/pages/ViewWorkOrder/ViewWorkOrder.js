@@ -1,119 +1,128 @@
-import * as React from 'react';
-import Paper from '@mui/material/Paper';
+import { React, useState, useEffect } from 'react';
+import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
-import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import './ViewWorkOrder.css';
+import Axios from "axios";
 
-const columns = [
-  { id: 'name', label: 'Part Number', minWidth: 170 },
-  { id: 'code', label: 'Label', minWidth: 100 },
-  {
-    id: 'population',
-    label: 'Population',
-    minWidth: 170,
-    align: 'right',
-    format: (value) => value.toLocaleString('en-US'),
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    fontSize: 16,
+    backgroundColor: '#212529',
+    color: theme.palette.common.white,
   },
-  {
-    id: 'size',
-    label: 'Enable',
-    minWidth: 170,
-    align: 'right',
-    format: (value) => value.toLocaleString('en-US'),
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14
   },
-  {
-    id: 'density',
-    label: 'Action',
-    minWidth: 170,
-    align: 'right',
-    format: (value) => value.toFixed(2),
-  },
-];
+}));
 
-function createData(name, code, population, size) {
-  const density = population / size;
-  return { name, code, population, size, density };
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  '&:nth-of-type(odd)': {
+    backgroundColor: theme.palette.action.hover,
+  },
+  // hide last border
+  '&:last-child td, &:last-child th': {
+    border: 0,
+  },
+}));
+
+// formats numbers with a comma delimeter
+function formatNumber(number) {
+  var nf = new Intl.NumberFormat();
+  return nf.format(number); // "1,234,567,890"
 }
 
-const rows = [
-  createData('India', 'IN', 1324171354, 3287263),
-  createData('China', 'CN', 1403500365, 9596961),
-  createData('Italy', 'IT', 60483973, 301340),
-  createData('United States', 'US', 327167434, 9833520),
-  createData('Canada', 'CA', 37602103, 9984670),
-  createData('Australia', 'AU', 25475400, 7692024),
-  createData('Germany', 'DE', 83019200, 357578),
-];
-
-export default function ViewWorkOrder() {
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
-
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
+export default function CustomizedTables() {
+  /* creating a react state hook, calling a GET api request to backend, then
+  /  adding response data to the products array variable. This is used to view
+  /  all of the products in the dropdown menu.*/
+  const [products, setProduct] = useState([]);
+  
+  const getProducts = () => {
+    Axios.get("http://localhost:5000/products/get-products").then((response) => {
+      setProduct(response.data);
+      console.log("products: ", response.data);
+    });
   };
 
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
+  /* creating a react state hook, calling a GET api request to backend, then
+  /  adding response data to the work orders array variable. This is used to view
+  /  all of the work orders in the dropdown menu.*/
+  const [workOrders, setOrder] = useState([]);
+  
+  const getOrders = () => {
+    Axios.get("http://localhost:5000/work-orders/get-orders").then((response) => {
+      setOrder(response.data);
+      console.log("wo: ", response.data);
+    });
   };
 
+  useEffect(() => {
+    getOrders();
+    getProducts();
+  }, []);
+
+  // gets the products label that corresponds to a part number.
+  // order is the supplied part number.
+  const getLabel = (order) => {
+    if (order === undefined) return "";
+    const prod = products.find(({ part_number }) => part_number === order);
+    if (prod === undefined) return ""; 
+    return prod.label;
+  }
+  
   return (
-    <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-      <TableContainer sx={{ maxHeight: 880 }}>
-        <Table stickyHeader aria-label="sticky table">
-          <TableHead>
-            <TableRow className = 'center'><h3>Work Order</h3></TableRow>
-            <TableRow>
-              
-              {columns.map((column) => (
-                <TableCell
-                  key={column.id}
-                  align={column.align}
-                  style={{ minWidth: column.minWidth }}
-                >
-                  
-                  {column.label}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row) => {
-                return (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
-                    {columns.map((column) => {
-                      const value = row[column.id];
-                      return (
-                        <TableCell key={column.id} align={column.align}>
-                          {column.format && typeof value === 'number'
-                            ? column.format(value)
-                            : value}
-                        </TableCell>
-                      );
-                    })}
-                  </TableRow>
-                );
-              })}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <TablePagination
-        rowsPerPageOptions={[10, 25, 100]}
-        component="div"
-        count={rows.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
-    </Paper>
+    <div>
+    <h3 className='table'>Work Orders</h3>
+    <TableContainer className='table' style={{marginTop: '1%'}}>
+      <Table sx={{ width: '95%' }} className='center' aria-label="customized table">
+        <TableHead>
+          <TableRow>
+            <StyledTableCell 
+            align='center' 
+            style={{ borderRight: '0.3px solid #879D9E', width: '25%' }}
+            > 
+              WO Number 
+            </StyledTableCell>
+            <StyledTableCell 
+            align='center' 
+            className="quantCell" 
+            style={{ borderRight: '0.3px solid #879D9E', width: '25%' }}
+            >
+               Quantity 
+            </StyledTableCell>
+            <StyledTableCell align='center'> Product </StyledTableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {workOrders.map((order) => (
+            <StyledTableRow key={order.name}>
+              <StyledTableCell 
+              style={{ borderRight: '0.3px solid #879D9E', width: '25%' }} 
+              component="th" 
+              scope="order" 
+              align='center'
+              >
+                WO - {order.wo_number}
+              </StyledTableCell>
+              <StyledTableCell  
+              style={{ borderRight: '0.3px solid #879D9E', width: '25%' }}
+              align='center'
+              >
+                {formatNumber(order.wo_quantity)}
+              </StyledTableCell>
+              <StyledTableCell align='center'>
+                {order.product_number}: &nbsp;{getLabel(order.product_number)}
+              </StyledTableCell>
+            </StyledTableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+    </div>
   );
 }

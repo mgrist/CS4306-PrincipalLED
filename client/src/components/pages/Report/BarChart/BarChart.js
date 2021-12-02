@@ -1,13 +1,14 @@
 import {Bar} from 'react-chartjs-2';
 import React from 'react';
 import Chart from 'chart.js/auto';
+import './barChart.css';
 
 
 //temp file
 
 export default function BarChart() {
     return(
-      <div className="ChartBar">
+      <div className='chart'>
         <Bar
         data= {{
           labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],

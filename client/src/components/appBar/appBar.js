@@ -10,8 +10,8 @@ import PrintIcon from '@mui/icons-material/Print';
 import './appBar.css';
 //import other pages to routes
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
-import SearchReport from '../pages/report/SearchReport';
-import ColumnGroupingTable from '../pages/report/reportpage/Report';
+import SearchReport from '../pages/report/searchReport';
+import ColumnGroupingTable from '../pages/report/barChart/barChart.js';
 import Home from    '../pages/home/home.js';
 import Products from '../pages/products/product';
 import CompForm from '../pages/home/newComp/newComp.js'
@@ -75,7 +75,7 @@ export default function AppBar() {
         }
         // if statements tell the plus button which path to send
         // you too based on your current path.
-        if (props.pathName === "/home") {
+        if (props.pathName === "/home" || props.pathName === "/") {
             formUrl = "/AddCompletion";
         }
         else if (props.pathName === "/Setting/WorkOrder") {
@@ -145,11 +145,11 @@ export default function AppBar() {
                 <Nav.Link className="links" as={Link} to={"/home"} onClick={ForceUpdate}>View Orders</Nav.Link>
                 <Nav.Link className="links" as={Link} to={"/SearchReport"} onClick={ForceUpdate}>Report</Nav.Link>
                 <NavDropdown className="links" href="/Setting" title="Settings" id="basic-nav-dropdown">
-                    <NavDropdown.Item as={Link} className="drop-downs" to={"Setting/WorkOrder"} onClick={ForceUpdate}>Work Order</NavDropdown.Item>
+                    <NavDropdown.Item as={Link} className="drop-downs" to={"Setting/WorkOrder"} onClick={ForceUpdate}>Work Orders</NavDropdown.Item>
                     <NavDropdown.Item as={Link} className="drop-downs" to={"Setting/Products"} onClick={ForceUpdate}>Products</NavDropdown.Item>
                     <NavDropdown.Item as={Link} className="drop-downs" to={"Setting/Stages"} onClick={ForceUpdate}>Stages</NavDropdown.Item>
                     <NavDropdown.Item as={Link} className="drop-downs" to={"Setting/Defect_Reason"} onClick={ForceUpdate}>Defect Reasons</NavDropdown.Item>
-                    <NavDropdown.Item as={Link} className="drop-downs" to={"Setting/Operator"} onClick={ForceUpdate}>Operator</NavDropdown.Item>
+                    <NavDropdown.Item as={Link} className="drop-downs" to={"Setting/Operator"} onClick={ForceUpdate}>Operators</NavDropdown.Item>
                 </NavDropdown>
                 </Navbar.Collapse>
             </Nav>

@@ -1,5 +1,5 @@
-.ChartBar{
-    height: 200px;
-    max-width: 300px;
-    margin: 50 auto;
+.chart{
+    margin-left: auto;
+    margin-right: auto;
+    width: 94%;
 }

@@ -10,6 +10,10 @@ const productsSchema = mongoose.Schema({
         type: String,
         unique: true
     },
+    assemblie: {
+        type: String,
+        unique: true
+    },
     enabled: {
         type: Boolean,
         deafult: true
