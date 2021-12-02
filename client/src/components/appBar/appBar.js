@@ -10,8 +10,8 @@ import PrintIcon from '@mui/icons-material/Print';
 import './appBar.css';
 //import other pages to routes
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
-import SearchReport from '../pages/report/searchReport';
-import ColumnGroupingTable from '../pages/report/barChart/barChart.js';
+import SearchReport from '../pages/report/SearchReport';
+import ColumnGroupingTable from '../pages/report/BarChart/BarChart';
 import Home from    '../pages/home/home.js';
 import Products from '../pages/products/product';
 import CompForm from '../pages/home/newComp/newComp.js'
