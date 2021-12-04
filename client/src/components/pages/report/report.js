@@ -9,7 +9,7 @@ import { FormControlLabel } from '@mui/material';
 
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Paper } from '@mui/material';
-import './SearchReport.css';
+import './report.css';
 import { height } from '@mui/system';
 
 //This will be removed. Temporary product name
@@ -36,7 +36,7 @@ const names = [
           value.push(options[i].value);
         }
       }
-      setPersonName(selectedValue);
+      setPersonName(value);
       
     };
     

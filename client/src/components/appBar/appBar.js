@@ -10,20 +10,20 @@ import PrintIcon from '@mui/icons-material/Print';
 import './appBar.css';
 //import other pages to routes
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
-import SearchReport from '../pages/report/SearchReport';
-import ColumnGroupingTable from '../pages/report/BarChart/BarChart';
+import SearchReport from '../pages/report/report';
+import ColumnGroupingTable from '../pages/report/barChart/barChart';
 import Home from    '../pages/home/home.js';
 import Products from '../pages/products/product';
 import CompForm from '../pages/home/newComp/newComp.js'
 import Stages from '../pages/stages/stage.js';
 import DefectReason from '../pages/defects/defect';
 import Operator from '../pages/operators/operator';
-import ViewWorkOrder from '../pages/ViewWorkOrder/ViewWorkOrder';
-import AddOrder from '../pages/ViewWorkOrder/addOrder/AddOrder';
+import ViewWorkOrder from '../pages/viewWorkOrder/viewWorkOrder';
+import AddOrder from '../pages/viewWorkOrder/addOrder/addOrder';
 import AddOperator from '../pages/operators/addOperator/addOperator';
-import AddProduct from '../pages/products/addProduct/AddProduct';
-import AddStage from '../pages/stages/addStage/AddStage';
-import AddDefect from '../pages/defects/addDefect/AddDefect';
+import AddProduct from '../pages/products/addProduct/addProduct';
+import AddStage from '../pages/stages/addStage/addStage';
+import AddDefect from '../pages/defects/addDefect/addDefect';
 
 //<Route path="/Setting/WorkOrder/AddOrder" element={<OrderForm />} />
 

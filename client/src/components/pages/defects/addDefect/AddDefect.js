@@ -2,7 +2,7 @@ import { React, useState, useEffect } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Box, TextField, MenuItem, Button } from "@mui/material";
 import Axios from "axios";
-import "./AddDefect.css";
+import "./addDefect.css";
 import SaveIcon from "@mui/icons-material/Save";
 import CancelIcon from "@mui/icons-material/Cancel";
 
