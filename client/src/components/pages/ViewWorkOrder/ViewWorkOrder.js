@@ -6,7 +6,7 @@ import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import './ViewWorkOrder.css';
+import './viewWorkOrder.css';
 import Axios from "axios";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
