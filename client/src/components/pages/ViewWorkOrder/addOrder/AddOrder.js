@@ -5,6 +5,7 @@ import Axios from "axios";
 import "./addOrder.css";
 import SaveIcon from "@mui/icons-material/Save";
 import CancelIcon from "@mui/icons-material/Cancel";
+import MuiAlert from "@material-ui/lab/Alert";
 
 // setting a green theme with the dropdown boxes
 const theme = createTheme({
@@ -18,96 +19,67 @@ const theme = createTheme({
   },
 });
 
-export default function AddOrder() {
-  /* creating a react state hook, calling a GET api request to backend, then
-  /  adding response data to the stages array variable. This is used to view
-  /  all of the stages in the dropdown menu.*/
-  const [stages, setStage] = useState([]);
-  
-  const getStages = () => {
-    Axios.get("http://localhost:5000/stages/get-stages").then((response) => {
-      setStage(response.data);
-    });
-  };
+function Alert(props) {
+  return (
+  <div className="center">
+  <MuiAlert id="alert" elevation={6} variant="filled" {...props} />
+  </div> );
+}
 
+export default function AddOrder() {
+  const [status, setStatus] = useState('');
+  function ForceUpdate(update) {
+      setStatus(status => update);
+  }
+
+  function RenderAlert() {
+    if (status === "success") {
+      return <Alert className="alert" severity="success">Successfully Submitted!</Alert>;
+    }
+    else if (status === "error") {
+      console.log("in Error Alert");
+      return <Alert className="alert" severity="error">Error: Invalid Input Field(s)</Alert>
+    }
+    else {
+      return null;
+    }
+  }
   /* creating a react state hook, calling a GET api request to backend, then
   /  adding response data to the products array variable. This is used to view
   /  all of the products in the dropdown menu.*/
   const [products, setProduct] = useState([]);
   
   const getProducts = () => {
-    Axios.get("http://localhost:5000/products/get-products").then((response) => {
-      setProduct(response.data);
-    });
-  };
-
-  /* creating a react state hook, calling a GET api request to backend, then
-  /  adding response data to the work orders array variable. This is used to view
-  /  all of the work orders in the dropdown menu.*/
-  const [workOrders, setOrder] = useState([]);
-  
-  const getOrders = () => {
-    Axios.get("http://localhost:5000/work-orders/get-orders").then((response) => {
-      setOrder(response.data);
-      console.log("wo: ", response.data);
-    });
-  };
-
-  const [defects, setDefect] = useState([]);
-  
-  const getDefects = () => {
-    Axios.get("http://localhost:5000/reasons/get-reasons").then((response) => {
-      setDefect(response.data);
-      console.log("defects reasons: ", response.data);
-    });
+    Axios.get("http://localhost:5000/products/get-products")
+    .then((response) => { setProduct(response.data);})
   };
 
   useEffect(() => {
-    getStages();
     getProducts();
-    getOrders();
-    getDefects();
   }, []);
 
-  const [completion, setCompletion] = useState({
+  const [order, setOrder] = useState({
     wo_number: 0,
-    quantity: 0,
-    operator_initials: "",
-    stage_id: 0,
-  });
-
-  const [scrap, setScrap] = useState({
-    wo_number: 0,
-    quantity: 0,
-    scrap_reason_id: "",
-    stage_id: 0,
-    operator_initials: "",
+    wo_quantity: 0,
+    product_number: ''
   });
 
   const testing = () => {
-    console.log("completion: ", completion);
-    console.log("scrap: ", scrap);
+    console.log("order: ", order);
   }
 
-  const createCompletion = () => {
-    Axios.post("http://localhost:5000/completions/new-completion", completion).then((response) => {
-      console.log(response);
-    });
-    if (scrap.quantity > 0) {
-      Axios.post("http://localhost:5000/scraps/new-scrap", scrap).then((response) => {
+  const createOrder = () => {
+    //if (order.wo_quantity > 0 && order.wo_number > 0 && order.product_number !== '') {
+      Axios.post("http://localhost:5000/work-orders/new-order", order)
+      .then((response) => { 
+        console.log(response); 
+        setStatus("success"); })
+      .catch((response) => { 
         console.log(response);
-      });
-    }
+        setStatus("error"); })
+    //}
+    ForceUpdate();
   };
-
-  // gets the products label that corresponds to a part number.
-  // order is the supplied part number.
-  const getLabel = (order) => {
-    if (order === undefined) return "";
-    const prod = products.find(({ part_number }) => part_number === order);
-    if (prod === undefined) return ""; 
-    return prod.label;
-  }
 
   return (
     <div>
@@ -121,127 +93,66 @@ export default function AddOrder() {
       ></Box>
 
       <ThemeProvider theme={theme}>
-        <h3 className="center">Add New Orders</h3>
+        <h3 className="center">Add New Order</h3>
 
         <div className="center">
           <div className="inWrap" style={{ marginLeft: "unset" }}>
-            <h6>Work Order</h6>
+            <h6>Product</h6>
             <TextField
               id="filled-select"
               select
-              label="Work Order"
-              value={completion.wo_number}
+              label="Product"
+              value={order.product_number}
               onChange={(event) => {
-                setCompletion({...completion, wo_number: event.target.value});
-                setScrap({...scrap, wo_number: event.target.value});
+                setOrder({...order, product_number: event.target.value});
               }}
               variant="filled"
               style={{ width: "100%" }}
             >
-              {workOrders.map((order) => (
-                <MenuItem key={order.wo_number} value={order.wo_number + ""}> 
-                  {getLabel(order.product_number)} (WO - {order.wo_number})
+              {products.map((product) => (
+                <MenuItem key={product.part_number} value={product.part_number + ""}>
+                  {product.part_number} : {product.label}
                 </MenuItem>
               ))}
             </TextField>
           </div>
 
           <div className="inWrap" style={{ width: "45%" }}>
-            <h6>Stage</h6>
-            <TextField
-              id="filled-select"
-              select
-              label="Stage"
-              value={completion.stage_id}
-              onChange={(event) => {
-                setCompletion({...completion, stage_id: event.target.value});
-                setScrap({...scrap, stage_id: event.target.value});
-              }}
-              variant="filled"
-              style={{ width: "100%" }}
-            >
-              {stages.map((stage) => (
-                <MenuItem key={stage.order} value={stage.order + ""}>
-                  {stage.order} - {stage.label}
-                </MenuItem>
-              ))}
-            </TextField>
+            <h6>Work Order Number</h6>
+              <TextField
+                id="filled-helperText"
+                label="Order Number"
+                onFocus={(event) => {
+                  event.target.select();
+                }}
+                value={order.wo_number}
+                onChange={(event) => {
+                  setOrder({...order, wo_number: event.target.value});
+                }}
+                variant="filled"
+                style={{ width: "100%" }}
+              />
           </div>
         </div>
 
         <div className="center">
-          <div className="inWrap" style={{ width: "20%", marginLeft: "unset" }}>
-            <h6>Quantity Completed</h6>
+          <div className="inWrap" style={{ width: "25%", marginLeft: "unset" }}>
+            <h6>Quantity</h6>
             <TextField
               id="filled-number"
               label="Number"
-              value={completion.quantity}
+              value={order.wo_quantity}
               type="number"
               inputProps={{ min: 0 }}
+              onFocus={(event) => {
+                event.target.select();
+              }}
               onChange={(event) => {
-                setCompletion({...completion, quantity: event.target.value});
+                setOrder({...order, wo_quantity: event.target.value});
               }}
               InputLabelProps={{
                 shrink: true,
               }}
-              variant="filled"
-              style={{ width: "100%" }}
-            />
-          </div>
-
-          <div className="inWrap" style={{ width: "20%" }}>
-            <h6>Quantity Defective</h6>
-            <TextField
-              id="filled-number"
-              label="Number"
-              value={scrap.quantity}
-              type="number"
-              inputProps={{ min: 0 }}
-              onChange={(event) => {
-                setScrap({...scrap, quantity: event.target.value});
-              }}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              variant="filled"
-              style={{ width: "100%" }}
-            />
-          </div>
-
-          <div className="inWrap">
-            <h6>Defect Type</h6>
-            <TextField
-              id="filled-select"
-              select
-              label="Defect"
-              value={scrap.scrap_reason_id}
-              variant="filled"
-              style={{ width: "100%" }}
-              onChange={(event) => {
-                setScrap({...scrap, scrap_reason_id: event.target.value});
-              }}
-            >
-              {defects.map((defect) => (
-                <MenuItem key={defect._id} value={defect._id + ""}>
-                  {defect.label}
-                </MenuItem>
-              ))}
-            </TextField>
-          </div>
-        </div>
-
-        <div className="center">
-          <div className="inWrap" style={{ width: "30%", marginLeft: "unset" }}>
-            <h6>Operator</h6>
-            <TextField
-              id="filled-helperText"
-              label="Initials"
-              value={completion.operator_initials}
-              onChange={(event) => {
-                setCompletion({...completion, operator_initials: event.target.value});
-                setScrap({...scrap, operator_initials: event.target.value});
-              }}
-              helperText="Enter operator initials or name"
               variant="filled"
               style={{ width: "100%" }}
             />
@@ -267,12 +178,13 @@ export default function AddOrder() {
               color="success"
               startIcon={<SaveIcon />}
               variant="contained"
-              onClick={createCompletion}
+              onClick={ createOrder }
             >
               save
             </Button>
           </div>
         </div>
+        <RenderAlert />
       </ThemeProvider>
     </div>
   );

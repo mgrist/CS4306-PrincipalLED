@@ -83,19 +83,19 @@ export default function CustomizedTables() {
         <TableHead>
           <TableRow>
             <StyledTableCell 
-            align='center' 
-            style={{ borderRight: '0.3px solid #879D9E', width: '25%' }}
+            align='left' 
+            style={{ borderRight: '0.3px solid #879D9E', width: '25%'}}
             > 
               WO Number 
             </StyledTableCell>
             <StyledTableCell 
-            align='center' 
+            align='left' 
             className="quantCell" 
             style={{ borderRight: '0.3px solid #879D9E', width: '25%' }}
             >
                Quantity 
             </StyledTableCell>
-            <StyledTableCell align='center'> Product </StyledTableCell>
+            <StyledTableCell align='left'> Product </StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -105,17 +105,17 @@ export default function CustomizedTables() {
               style={{ borderRight: '0.3px solid #879D9E', width: '25%' }} 
               component="th" 
               scope="order" 
-              align='center'
+              align='left'
               >
                 WO - {order.wo_number}
               </StyledTableCell>
               <StyledTableCell  
               style={{ borderRight: '0.3px solid #879D9E', width: '25%' }}
-              align='center'
+              align='left'
               >
                 {formatNumber(order.wo_quantity)}
               </StyledTableCell>
-              <StyledTableCell align='center'>
+              <StyledTableCell align='left'>
                 {order.product_number}: &nbsp;{getLabel(order.product_number)}
               </StyledTableCell>
             </StyledTableRow>
