@@ -44,14 +44,8 @@ export default function AppBar() {
 
     // print button component
     function PrintButton(props){
-        console.log("I am printbtn");
-        let styling = {
-            marginLeft: '2%', 
-            marginRight: '2%'
-        }
         return(
-            <Button  
-                style={props.styleType}  
+            <Button    
                 color="secondary"
                 id="print-bttn"
                 onClick={() => window.print()}

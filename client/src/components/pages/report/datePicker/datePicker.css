@@ -10,21 +10,3 @@
     padding-top: 20px;
 
 }
-
-.inWrap {
-    margin-left: auto;
-    width: 50%;
-}
-
-.right{
-    position: absolute;
-    right: 0;
-}
-
-.btn:active {
-    background-color: #53BA4D;    
-}
-
-.border{
-    border-style: solid;
-}

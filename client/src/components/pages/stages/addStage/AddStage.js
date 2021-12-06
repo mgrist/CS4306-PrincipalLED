@@ -84,11 +84,6 @@ export default function AddStage() {
     operator_initials: "",
   });
 
-  const testing = () => {
-    console.log("completion: ", completion);
-    console.log("scrap: ", scrap);
-  }
-
   const createCompletion = () => {
     Axios.post("http://localhost:5000/completions/new-completion", completion).then((response) => {
       console.log(response);
