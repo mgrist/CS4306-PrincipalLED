@@ -11,6 +11,7 @@ import BasicDateRangePicker from './datePicker/datePicker';
 import FormControlLabelPosition from './checkbox/checkbox';
 
 
+
 //This will be removed. Temporary product name for static data
 const names = [
   'Oliver Hansen',
@@ -24,6 +25,7 @@ const names = [
   'Virginia Andrews',
   'Kelly Snyder',
 ];
+
 
 //need to fix in css
 //temp: left border css for checking space
@@ -83,6 +85,8 @@ export default function SearchReport() {
               <Link to = "/report">
                   <Button 
                   color="secondary"
+                  className='btn'
+                  
                   onClick={ForceUpdate}
                   >
                       View                
@@ -93,20 +97,18 @@ export default function SearchReport() {
   }
 
   return (
-      <div>                   
-          <h3 className="center">Add Completions</h3>
-              <Paper
-              component="form"
-              sx={{
-              "& .MuiTextField-root": { m: 1, width: "25ch" },
-              }}
-              noValidate
-              autoComplete="off"
-              >
+      <div className='paper' >                   
+          <h3 className='middle' >Add Completions</h3>
+          <div className='left' >
                   <MultipleSelectNative/>
+          </div>
+          <div className='middleTime' >
                   <BasicDateRangePicker/>
-                  <FormControlLabelPosition/>                 
-              </Paper>
+                  </div>
+                  <div className='right' >
+                  <FormControlLabelPosition />
+
+          </div>
 
           <ViewButton/>
       </div>

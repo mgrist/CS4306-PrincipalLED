@@ -20,7 +20,7 @@ export default function BasicDateRangePicker() {
           }}
           renderInput={(startProps, endProps) => (
             <React.Fragment>
-                <Box>
+                <Box className="middleTime">
                 <Box>
               <TextField {...startProps} />
               </Box>
