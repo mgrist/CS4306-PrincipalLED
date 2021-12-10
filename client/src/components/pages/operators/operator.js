@@ -53,20 +53,20 @@ export default function CustomizedTables() {
         <TableHead>
           <TableRow>
             <StyledTableCell 
-            align='center' 
+            align='left' 
             style={{ borderRight: '0.3px solid #879D9E', width: '33%' }}
             > 
               First Name
             </StyledTableCell>
 
             <StyledTableCell 
-            align='center' 
+            align='left' 
             style={{ borderRight: '0.3px solid #879D9E', width: '33%' }}
             > 
               Last Name
             </StyledTableCell>
             
-            <StyledTableCell align='center'> Initials </StyledTableCell>
+            <StyledTableCell align='left'> Initials </StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -76,7 +76,7 @@ export default function CustomizedTables() {
               style={{ borderRight: '0.3px solid #879D9E', width: '33%' }} 
               component="th" 
               scope="operator" 
-              align='center'
+              align='left'
               >
                 {operator.first_name}
               </StyledTableCell>
@@ -84,12 +84,12 @@ export default function CustomizedTables() {
               <StyledTableCell 
               style={{ borderRight: '0.3px solid #879D9E', width: '33%' }} 
               component="th" 
-              align='center'
+              align='left'
               >
                 {operator.last_name}
               </StyledTableCell>
 
-              <StyledTableCell align='center'>
+              <StyledTableCell align='left'>
                 {operator.initials}
               </StyledTableCell>
             </StyledTableRow>

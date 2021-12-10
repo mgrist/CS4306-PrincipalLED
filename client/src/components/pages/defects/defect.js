@@ -54,14 +54,14 @@ export default function CustomizedTables() {
         <TableHead>
           <TableRow>
             <StyledTableCell 
-            align='center' 
+            align='left' 
             style={{ borderRight: '0.3px solid #879D9E'}}
             > 
               Label
             </StyledTableCell>
 
             <StyledTableCell 
-            align='center' 
+            align='left' 
             style={{ borderRight: '0.3px solid #879D9E'}}
             > 
               Description
@@ -75,7 +75,7 @@ export default function CustomizedTables() {
               style={{ borderRight: '0.3px solid #879D9E' }} 
               component="th" 
               scope="defect" 
-              align='center'
+              align='left'
               >
                 {defect.label}
               </StyledTableCell>
@@ -83,7 +83,7 @@ export default function CustomizedTables() {
               <StyledTableCell 
               style={{ borderRight: '0.3px solid #879D9E' }} 
               component="th" 
-              align='center'
+              align='left'
               >
                 {defect.description}
               </StyledTableCell>

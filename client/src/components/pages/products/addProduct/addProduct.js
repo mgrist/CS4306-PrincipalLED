@@ -2,9 +2,10 @@ import { React, useState, useEffect } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Box, TextField, MenuItem, Button } from "@mui/material";
 import Axios from "axios";
-import "./addProduct.css";
+import MuiAlert from "@material-ui/lab/Alert";
 import SaveIcon from "@mui/icons-material/Save";
 import CancelIcon from "@mui/icons-material/Cancel";
+import "./addProduct.css";
 
 // setting a green theme with the dropdown boxes
 const theme = createTheme({
@@ -18,96 +19,58 @@ const theme = createTheme({
   },
 });
 
-export default function AddProduct() {
-  /* creating a react state hook, calling a GET api request to backend, then
-  /  adding response data to the stages array variable. This is used to view
-  /  all of the stages in the dropdown menu.*/
-  const [stages, setStage] = useState([]);
-  
-  const getStages = () => {
-    Axios.get("http://localhost:5000/stages/get-stages").then((response) => {
-      setStage(response.data);
-    });
-  };
+function Alert(props) {
+  return (
+  <div className="center">
+    <MuiAlert id="alert" elevation={6} variant="filled" {...props} />
+  </div> );
+}
 
+export default function CompletionForm() {
+  const [status, setStatus] = useState('');
+  function ForceUpdate(update) {
+      setStatus(status => update);
+  }
+
+  function RenderAlert(props) {
+    if (status === "success") {
+      return <Alert className="alert" severity="success">Successfully Submitted!</Alert>;
+    }
+    else if (status === "error") {
+      console.log("in Error Alert");
+      return <Alert className="alert" severity="error">Error: Invalid Input Field(s)</Alert>
+    }
+    else {
+      return null;
+    }
+  }
   /* creating a react state hook, calling a GET api request to backend, then
   /  adding response data to the products array variable. This is used to view
   /  all of the products in the dropdown menu.*/
-  const [products, setProduct] = useState([]);
+  const [products, setProducts] = useState([]);
   
   const getProducts = () => {
     Axios.get("http://localhost:5000/products/get-products").then((response) => {
-      setProduct(response.data);
-    });
-  };
-
-  /* creating a react state hook, calling a GET api request to backend, then
-  /  adding response data to the work orders array variable. This is used to view
-  /  all of the work orders in the dropdown menu.*/
-  const [workOrders, setOrder] = useState([]);
-  
-  const getOrders = () => {
-    Axios.get("http://localhost:5000/work-orders/get-orders").then((response) => {
-      setOrder(response.data);
-      console.log("wo: ", response.data);
-    });
-  };
-
-  const [defects, setDefect] = useState([]);
-  
-  const getDefects = () => {
-    Axios.get("http://localhost:5000/reasons/get-reasons").then((response) => {
-      setDefect(response.data);
-      console.log("defects reasons: ", response.data);
+      setProducts(response.data);
     });
   };
 
   useEffect(() => {
-    getStages();
     getProducts();
-    getOrders();
-    getDefects();
   }, []);
 
-  const [completion, setCompletion] = useState({
-    wo_number: 0,
-    quantity: 0,
-    operator_initials: "",
-    stage_id: 0,
+  const [product, setProduct] = useState({
+    part_number: '',
+    label: '',
+    assemblie: '',
+    cost: '0.00'
   });
 
-  const [scrap, setScrap] = useState({
-    wo_number: 0,
-    quantity: 0,
-    scrap_reason_id: "",
-    stage_id: 0,
-    operator_initials: "",
-  });
-
-  const testing = () => {
-    console.log("completion: ", completion);
-    console.log("scrap: ", scrap);
-  }
-
-  const createCompletion = () => {
-    Axios.post("http://localhost:5000/completions/new-completion", completion).then((response) => {
-      console.log(response);
-    });
-    if (scrap.quantity > 0) {
-      Axios.post("http://localhost:5000/scraps/new-scrap", scrap).then((response) => {
-        console.log(response);
-      });
-    }
+  const createProduct = () => {
+    Axios.post("http://localhost:5000/products/new-product", product)
+    .then((response) => { setStatus("success"); })
+    .catch((response) => { setStatus("error"); });
   };
-
-  // gets the products label that corresponds to a part number.
-  // order is the supplied part number.
-  const getLabel = (order) => {
-    if (order === undefined) return "";
-    const prod = products.find(({ part_number }) => part_number === order);
-    if (prod === undefined) return ""; 
-    return prod.label;
-  }
 
   return (
     <div>
@@ -121,127 +84,71 @@ export default function AddProduct() {
       ></Box>
 
       <ThemeProvider theme={theme}>
-        <h3 className="center">Add New Productions</h3>
+        <h3 className="center">New Product</h3>
 
         <div className="center">
           <div className="inWrap" style={{ marginLeft: "unset" }}>
-            <h6>Work Order</h6>
-            <TextField
-              id="filled-select"
-              select
-              label="Work Order"
-              value={completion.wo_number}
-              onChange={(event) => {
-                setCompletion({...completion, wo_number: event.target.value});
-                setScrap({...scrap, wo_number: event.target.value});
-              }}
-              variant="filled"
-              style={{ width: "100%" }}
-            >
-              {workOrders.map((order) => (
-                <MenuItem key={order.wo_number} value={order.wo_number + ""}> 
-                  {getLabel(order.product_number)} (WO - {order.wo_number})
-                </MenuItem>
-              ))}
-            </TextField>
-          </div>
-
-          <div className="inWrap" style={{ width: "45%" }}>
-            <h6>Stage</h6>
-            <TextField
-              id="filled-select"
-              select
-              label="Stage"
-              value={completion.stage_id}
-              onChange={(event) => {
-                setCompletion({...completion, stage_id: event.target.value});
-                setScrap({...scrap, stage_id: event.target.value});
-              }}
-              variant="filled"
-              style={{ width: "100%" }}
-            >
-              {stages.map((stage) => (
-                <MenuItem key={stage.order} value={stage.order + ""}>
-                  {stage.order} - {stage.label}
-                </MenuItem>
-              ))}
-            </TextField>
-          </div>
-        </div>
-
-        <div className="center">
-          <div className="inWrap" style={{ width: "20%", marginLeft: "unset" }}>
-            <h6>Quantity Completed</h6>
-            <TextField
-              id="filled-number"
-              label="Number"
-              value={completion.quantity}
-              type="number"
-              inputProps={{ min: 0 }}
-              onChange={(event) => {
-                setCompletion({...completion, quantity: event.target.value});
-              }}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              variant="filled"
-              style={{ width: "100%" }}
-            />
-          </div>
-
-          <div className="inWrap" style={{ width: "20%" }}>
-            <h6>Quantity Defective</h6>
-            <TextField
-              id="filled-number"
-              label="Number"
-              value={scrap.quantity}
-              type="number"
-              inputProps={{ min: 0 }}
-              onChange={(event) => {
-                setScrap({...scrap, quantity: event.target.value});
-              }}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              variant="filled"
-              style={{ width: "100%" }}
-            />
-          </div>
-
-          <div className="inWrap">
-            <h6>Defect Type</h6>
-            <TextField
-              id="filled-select"
-              select
-              label="Defect"
-              value={scrap.scrap_reason_id}
-              variant="filled"
-              style={{ width: "100%" }}
-              onChange={(event) => {
-                setScrap({...scrap, scrap_reason_id: event.target.value});
-              }}
-            >
-              {defects.map((defect) => (
-                <MenuItem key={defect._id} value={defect._id + ""}>
-                  {defect.label}
-                </MenuItem>
-              ))}
-            </TextField>
-          </div>
-        </div>
-
-        <div className="center">
-          <div className="inWrap" style={{ width: "30%", marginLeft: "unset" }}>
-            <h6>Operator</h6>
+            <h6>Label</h6>
             <TextField
               id="filled-helperText"
-              label="Initials"
-              value={completion.operator_initials}
+              autoComplete="off"
+              label="Label"
+              value={product.label}
               onChange={(event) => {
-                setCompletion({...completion, operator_initials: event.target.value});
-                setScrap({...scrap, operator_initials: event.target.value});
+                setProduct({...product, label: event.target.value});
               }}
-              helperText="Enter operator initials or name"
+              variant="filled"
+              style={{ width: "100%" }}
+            />
+          </div>
+
+          <div className="inWrap" style={{ width: '22%', marginLeft: 'auto' }}>
+            <h6>Assemblie</h6>
+            <TextField
+              id="filled-helperText"
+              label="Assemblie"
+              value={product.assemblie}
+              onChange={(event) => {
+                setProduct({...product, assemblie: event.target.value});
+              }}
+              variant="filled"
+              style={{ width: "100%" }}
+            />
+          </div>
+
+          <div className="inWrap" style={{ width: '22%', marginLeft: 'auto'}}>
+            <h6>Part Number</h6>
+            <TextField
+              id="filled-helperText"
+              label="Serial"
+              value={product.part_number}
+              onChange={(event) => {
+                setProduct({...product, part_number: event.target.value});
+              }}
+              variant="filled"
+              style={{ width: "100%" }}
+            />
+          </div>
+        </div>
+
+        <div className="center">
+          <div className="inWrap" style={{ width: '20%', marginLeft: 'unset' }}>
+            <h6>Cost</h6>
+            <TextField
+              id="filled-number"
+              label="Number"
+              value={product.cost}
+              type="number"
+              inputProps={{ min: 0 }}
+              onChange={(event) => {
+                setProduct({...product, cost: event.target.value});
+              }}
+              onFocus={(event) => {
+                event.target.select();
+              }}
+              InputLabelProps={{
+                shrink: true,
+              }}
               variant="filled"
               style={{ width: "100%" }}
             />
@@ -267,12 +174,13 @@ export default function AddProduct() {
               color="success"
               startIcon={<SaveIcon />}
               variant="contained"
-              onClick={createCompletion}
+              onClick={createProduct}
             >
               save
             </Button>
           </div>
         </div>
+        <RenderAlert/>
       </ThemeProvider>
     </div>
   );

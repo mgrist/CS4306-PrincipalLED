@@ -2,9 +2,10 @@ import { React, useState, useEffect } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Box, TextField, MenuItem, Button } from "@mui/material";
 import Axios from "axios";
-import "./newComp.css";
+import MuiAlert from "@material-ui/lab/Alert";
 import SaveIcon from "@mui/icons-material/Save";
 import CancelIcon from "@mui/icons-material/Cancel";
+import "./newComp.css";
 
 // setting a green theme with the dropdown boxes
 const theme = createTheme({
@@ -18,7 +19,31 @@ const theme = createTheme({
   },
 });
 
+function Alert(props) {
+  return (
+  <div className="center">
+    <MuiAlert id="alert" elevation={6} variant="filled" {...props} />
+  </div> );
+}
+
 export default function CompletionForm() {
+  const [status, setStatus] = useState('');
+  function ForceUpdate(update) {
+      setStatus(status => update);
+  }
+
+  function RenderAlert(props) {
+    if (status === "success") {
+      return <Alert className="alert" severity="success">Successfully Submitted!</Alert>;
+    }
+    else if (status === "error") {
+      console.log("in Error Alert");
+      return <Alert className="alert" severity="error">Error: Invalid Input Field(s)</Alert>
+    }
+    else {
+      return null;
+    }
+  }
   /* creating a react state hook, calling a GET api request to backend, then
   /  adding response data to the stages array variable. This is used to view
   /  all of the stages in the dropdown menu.*/
@@ -84,14 +109,20 @@ export default function CompletionForm() {
     operator_initials: "",
   });
 
+  function testing() {
+    console.log("completion", completion);
+    console.log("scrap", scrap);
+  }
+
   const createCompletion = () => {
-    Axios.post("http://localhost:5000/completions/new-completion", completion).then((response) => {
-      console.log(response);
-    });
+    Axios.post("http://localhost:5000/completions/new-completion", completion)
+    .then((response) => { setStatus("success"); })
+    .catch((response) => { setStatus("error"); });
+    
     if (scrap.quantity > 0) {
-      Axios.post("http://localhost:5000/scraps/new-scrap", scrap).then((response) => {
-        console.log(response);
-      });
+      Axios.post("http://localhost:5000/scraps/new-scrap", scrap)
+      .then((response) => { setStatus("success"); })
+      .catch((response) => { setStatus("error"); });
     }
   };
 
@@ -124,17 +155,18 @@ export default function CompletionForm() {
             <TextField
               id="filled-select"
               select
-              label="Work Order"
-              value={completion.wo_number}
-              onChange={(event) => {
-                setCompletion({...completion, wo_number: event.target.value});
-                setScrap({...scrap, wo_number: event.target.value});
-              }}
+              label="Order"
+              defaultValue=""
+              value={workOrders.wo_number}
               variant="filled"
               style={{ width: "100%" }}
+              onChange={(event) => {
+                setScrap({...scrap, wo_number: event.target.value});
+                setCompletion({...completion, wo_number: event.target.value});
+              }}
             >
-              {workOrders.map((order) => (
-                <MenuItem key={order.wo_number} value={order.wo_number + ""}> 
+              {workOrders.map((order, index) => (
+                <MenuItem key={order.wo_number} value={order.wo_number}>
                   {getLabel(order.product_number)} (WO - {order.wo_number})
                 </MenuItem>
               ))}
@@ -147,16 +179,17 @@ export default function CompletionForm() {
               id="filled-select"
               select
               label="Stage"
-              value={completion.stage_id}
-              onChange={(event) => {
-                setCompletion({...completion, stage_id: event.target.value});
-                setScrap({...scrap, stage_id: event.target.value});
-              }}
+              defaultValue=""
+              value={stages.order}
               variant="filled"
               style={{ width: "100%" }}
+              onChange={(event) => {
+                setScrap({...scrap, stage_id: event.target.value});
+                setCompletion({...completion, stage_id: event.target.value});
+              }}
             >
-              {stages.map((stage) => (
-                <MenuItem key={stage.order} value={stage.order + ""}>
+              {stages.map((stage, index) => (
+                <MenuItem key={stage.order} value={stage.order}>
                   {stage.order} - {stage.label}
                 </MenuItem>
               ))}
@@ -175,6 +208,9 @@ export default function CompletionForm() {
               inputProps={{ min: 0 }}
               onChange={(event) => {
                 setCompletion({...completion, quantity: event.target.value});
+              }}
+              onFocus={(event) => {
+                event.target.select();
               }}
               InputLabelProps={{
                 shrink: true,
@@ -195,6 +231,9 @@ export default function CompletionForm() {
               onChange={(event) => {
                 setScrap({...scrap, quantity: event.target.value});
               }}
+              onFocus={(event) => {
+                event.target.select();
+              }}
               InputLabelProps={{
                 shrink: true,
               }}
@@ -209,14 +248,15 @@ export default function CompletionForm() {
               id="filled-select"
               select
               label="Defect"
-              value={scrap.scrap_reason_id}
+              defaultValue=""
+              value={scrap.scrap_reason_id + ""}
               variant="filled"
               style={{ width: "100%" }}
               onChange={(event) => {
                 setScrap({...scrap, scrap_reason_id: event.target.value});
               }}
             >
-              {defects.map((defect) => (
+              {defects.map((defect, index) => (
                 <MenuItem key={defect._id} value={defect._id + ""}>
                   {defect.label}
                 </MenuItem>
@@ -268,6 +308,7 @@ export default function CompletionForm() {
             </Button>
           </div>
         </div>
+        <RenderAlert/>
       </ThemeProvider>
     </div>
   );

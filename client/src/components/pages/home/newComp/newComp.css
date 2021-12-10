@@ -11,11 +11,24 @@
 }
 
 .inWrap {
-    margin-left: auto;
+    margin-left: 10px;
     width: 50%;
 }
 
 .right{
     position: absolute;
     right: 0;
+}
+
+.button {
+    width: 30%;
+    position: absolute;
+    right: 7%;
+}
+  
+@media screen and (max-width: 990px) {
+   .button{
+      width: 30%;
+      right: 8em;
+   }
 }

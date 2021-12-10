@@ -80,28 +80,31 @@ export default function CustomizedTables() {
     <h3 className='table'>Work Orders</h3>
     <TableContainer className='table' style={{marginTop: '1%'}}>
       <Table sx={{ width: '95%' }} className='center' aria-label="customized table">
-        <TableHead>
-          <TableRow>
-            <StyledTableCell 
+        <TableHead key="head">
+          <TableRow key="row">
+            <StyledTableCell
+            key="woNum" 
             align='left' 
             style={{ borderRight: '0.3px solid #879D9E', width: '25%'}}
             > 
               WO Number 
             </StyledTableCell>
             <StyledTableCell 
+            key="quant"
             align='left' 
             className="quantCell" 
             style={{ borderRight: '0.3px solid #879D9E', width: '25%' }}
             >
                Quantity 
             </StyledTableCell>
-            <StyledTableCell align='left'> Product </StyledTableCell>
+            <StyledTableCell align='left' key="prod"> Product </StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {workOrders.map((order) => (
-            <StyledTableRow key={order.name}>
-              <StyledTableCell 
+          {workOrders.map((order, i) => (
+            <StyledTableRow key={i}>
+              <StyledTableCell
+              key={i} 
               style={{ borderRight: '0.3px solid #879D9E', width: '25%' }} 
               component="th" 
               scope="order" 
@@ -109,13 +112,16 @@ export default function CustomizedTables() {
               >
                 WO - {order.wo_number}
               </StyledTableCell>
+
               <StyledTableCell  
               style={{ borderRight: '0.3px solid #879D9E', width: '25%' }}
               align='left'
+              key={i}
               >
                 {formatNumber(order.wo_quantity)}
               </StyledTableCell>
-              <StyledTableCell align='left'>
+
+              <StyledTableCell align='left' key={i}>
                 {order.product_number}: &nbsp;{getLabel(order.product_number)}
               </StyledTableCell>
             </StyledTableRow>

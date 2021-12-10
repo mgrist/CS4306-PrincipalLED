@@ -59,21 +59,21 @@ export default function CustomizedTables() {
             > 
               Order
             </StyledTableCell>
-            <StyledTableCell style={{paddingLeft: '10%'}}> Label </StyledTableCell>
+            <StyledTableCell> Label </StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {stages.map((stage) => (
             <StyledTableRow key={stage.order}>
               <StyledTableCell 
-              style={{ borderRight: '0.3px solid #879D9E', width: '25%' }} 
+              style={{ borderRight: '0.3px solid #879D9E', width: '25%'}} 
               component="th" 
               scope="stage" 
               align='center'
               >
                 {stage.order}
               </StyledTableCell>
-              <StyledTableCell style={{paddingLeft: '10%'}}>
+              <StyledTableCell>
                 {stage.label}
               </StyledTableCell>
             </StyledTableRow>

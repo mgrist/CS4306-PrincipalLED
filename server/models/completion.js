@@ -7,7 +7,7 @@ const completionsSchema = mongoose.Schema({
     },
     quantity: {
         type: Number,
-        default: 0
+        required: true
     },
     operator_initials: {
         type: String,

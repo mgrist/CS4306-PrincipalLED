@@ -12,7 +12,8 @@ const productsSchema = mongoose.Schema({
     },
     assemblie: {
         type: String,
-        unique: true
+        default: 'N/A',
+        required: true
     },
     enabled: {
         type: Boolean,

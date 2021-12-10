@@ -64,19 +64,19 @@ export default function CustomizedTables() {
         <TableHead>
           <TableRow>
             <StyledTableCell 
-            align='center' 
+            align='left' 
             style={{ borderRight: '0.3px solid #879D9E', width: '25%' }}
             > 
               Part Number 
             </StyledTableCell>
             <StyledTableCell 
-            align='center' 
+            align='left' 
             className="quantCell" 
             style={{ borderRight: '0.3px solid #879D9E', width: '25%' }}
             >
                Assemblie 
             </StyledTableCell>
-            <StyledTableCell align='center'> Label </StyledTableCell>
+            <StyledTableCell align='left'> Label </StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -86,17 +86,17 @@ export default function CustomizedTables() {
               style={{ borderRight: '0.3px solid #879D9E', width: '25%' }} 
               component="th" 
               scope="product" 
-              align='center'
+              align='left'
               >
                 {product.part_number}
               </StyledTableCell>
               <StyledTableCell  
               style={{ borderRight: '0.3px solid #879D9E', width: '25%' }}
-              align='center'
+              align='left'
               >
-                {product.part_number}
+                {product.assemblie}
               </StyledTableCell>
-              <StyledTableCell align='center'>
+              <StyledTableCell align='left'>
                 {product.label}
               </StyledTableCell>
             </StyledTableRow>

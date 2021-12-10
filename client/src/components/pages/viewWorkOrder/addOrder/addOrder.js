@@ -91,9 +91,9 @@ export default function AddOrder() {
         noValidate
         autoComplete="off"
       ></Box>
-
+      
       <ThemeProvider theme={theme}>
-        <h3 className="center">Add New Order</h3>
+        <h3 className="center">New Work Order</h3>
 
         <div className="center">
           <div className="inWrap" style={{ marginLeft: "unset" }}>
