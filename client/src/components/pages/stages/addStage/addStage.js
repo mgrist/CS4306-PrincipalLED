@@ -6,6 +6,7 @@ import MuiAlert from "@material-ui/lab/Alert";
 import SaveIcon from "@mui/icons-material/Save";
 import CancelIcon from "@mui/icons-material/Cancel";
 import "./addStage.css";
+import { useNavigate } from 'react-router-dom';
 
 // setting a green theme with the dropdown boxes
 const theme = createTheme({
@@ -63,7 +64,10 @@ export default function CompletionForm() {
     label: '',
     order: 0
   });
-  
+
+  //before return start
+const navigate = useNavigate();
+
   const createCompletion = () => {
     Axios.post("http://localhost:5000/stages/new-stage", stage)
     .then((response) => { setStatus("success"); })
@@ -129,6 +133,7 @@ export default function CompletionForm() {
               startIcon={<CancelIcon />}
               variant="contained"
               style={{width: "100%"}}
+              onClick={() => navigate(-1)}
             >
               cancel
             </Button>

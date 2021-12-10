@@ -6,6 +6,7 @@ import MuiAlert from "@material-ui/lab/Alert";
 import SaveIcon from "@mui/icons-material/Save";
 import CancelIcon from "@mui/icons-material/Cancel";
 import "./addOperator.css";
+import { useNavigate } from 'react-router-dom';
 
 // setting a green theme with the dropdown boxes
 const theme = createTheme({
@@ -57,6 +58,8 @@ export default function CompletionForm() {
     .then((response) => { setStatus("success"); })
     .catch((response) => { setStatus("error"); });
   };
+  //before return start
+  const navigate = useNavigate();
 
   return (
     <div>
@@ -123,6 +126,7 @@ export default function CompletionForm() {
               startIcon={<CancelIcon />}
               variant="contained"
               style={{width: "100%"}}
+              onClick={() => navigate(-1)}
             >
               cancel
             </Button>

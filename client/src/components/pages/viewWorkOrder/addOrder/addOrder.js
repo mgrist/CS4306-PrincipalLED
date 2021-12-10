@@ -6,6 +6,7 @@ import "./addOrder.css";
 import SaveIcon from "@mui/icons-material/Save";
 import CancelIcon from "@mui/icons-material/Cancel";
 import MuiAlert from "@material-ui/lab/Alert";
+import { useNavigate } from 'react-router-dom';
 
 // setting a green theme with the dropdown boxes
 const theme = createTheme({
@@ -80,6 +81,9 @@ export default function AddOrder() {
     //}
     ForceUpdate();
   };
+
+    //before return start
+    const navigate = useNavigate();
 
   return (
     <div>
@@ -166,8 +170,10 @@ export default function AddOrder() {
           >
             <Button
               color="secondary"
+              onClick={() => navigate(-1)}
               startIcon={<CancelIcon />}
               variant="contained"
+              
             >
               cancel
             </Button>
