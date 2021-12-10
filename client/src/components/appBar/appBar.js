@@ -1,4 +1,4 @@
-import { React, useState } from 'react';
+import { React, useState, Component } from 'react';
 import { Navbar, Nav, NavDropdown, Image } from 'react-bootstrap/';
 import Logo from '../../images/led2.png';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -102,7 +102,7 @@ export default function AppBar() {
             </Link>
         );
     }
-    
+
     // This does nothing, but re-renders page
     const [bttn, setBttn] = useState(Math.random());
     function ForceUpdate() {

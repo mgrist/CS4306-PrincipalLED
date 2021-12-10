@@ -4,15 +4,17 @@ const workOrderSchema = mongoose.Schema({
     wo_number: {
         type: Number,
         unique: [true, "A work order with this number already exists"],
-        required: true
+        required: true,
+        min: 1
     },
     wo_quantity: {
         type: Number,
-        required: true
+        required: true,
+        min: 1
     },
     product_number: {
         type: String,
-        required: true
+        required: [true, "Please provide a product"]
     },
     created_at: {
         type: Date,
