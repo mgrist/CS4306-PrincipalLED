@@ -13,6 +13,18 @@ export const getScraps = async (req, res) =>  {
     }
 }
 
+// gets all the scrap scraps from scrap collection, returns as json.
+export const getOrderScraps = async (req, res) =>  {
+    try {
+        const orderNum = req.query.num;
+        const scraps = await Scrap.find({ wo_number: orderNum });
+        
+        res.status(200).json(scraps);
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+}
+
 // creates a scrap and adds it to scrap collection
 // also outputs added scrap as json.
 export const createScrap = async (req, res) => {

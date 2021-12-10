@@ -13,6 +13,30 @@ export const getCompletions = async (req, res) =>  {
     }
 }
 
+// gets all completions belonging to a specific work order
+export const getOrderCompletions = async (req, res) =>  {
+    try {
+        const orderNum = req.query.num;
+        const completions = await Completion.find({ wo_number: orderNum });
+        
+        res.status(200).json(completions);
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+}
+
+// gets all completions belonging to a specific operator
+export const getOpCompletions = async (req, res) =>  {
+    try {
+        const opInitials = req.query.initials;
+        const completions = await Completion.find({ operator_initials: opInitials });
+        
+        res.status(200).json(completions);
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+}
+
 // creates a new completion and adds it to completion collection
 // also outputs added stage as json.
 export const createCompletion = async (req, res) => {

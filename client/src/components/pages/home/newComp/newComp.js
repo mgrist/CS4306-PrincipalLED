@@ -39,7 +39,6 @@ export default function CompletionForm() {
       return <Alert className="alert" severity="success">Successfully Submitted!</Alert>;
     }
     else if (status === "error") {
-      console.log("in Error Alert");
       return <Alert className="alert" severity="error">Error: Invalid Input Field(s)</Alert>
     }
     else {
@@ -64,6 +63,7 @@ export default function CompletionForm() {
   
   const getProducts = () => {
     Axios.get("http://localhost:5000/products/get-products").then((response) => {
+      console.log("products", response.data);
       setProduct(response.data);
     });
   };

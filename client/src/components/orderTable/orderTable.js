@@ -1,40 +1,97 @@
-import * as React from 'react';
+import { React, useState, useEffect } from 'react';
+import Axios from "axios";
 import PropTypes from 'prop-types';
 import { Box, Collapse, IconButton, Table, TableBody, Typography } from '@mui/material';
 import { TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import DropDownTable from './dropDownTable';
 import './orderTable.css';
 
-function createData(name, calories, fat, carbs, protein, price) {
-  return {
-    name,
-    calories,
-    fat,
-    carbs,
-    protein,
-    price,
-    history: [
-      {
-        date: '2020-01-05',
-        customerId: '11091700',
-        amount: 3,
-      },
-      {
-        date: '2020-01-02',
-        customerId: 'Anonymous',
-        amount: 1,
-      },
-    ],
-  };
-}
+export function Row(props) {
+  const { order } = props;
+  const [open, setOpen] = useState(false);
 
-function Row(props) {
-  const { row } = props;
-  const [open, setOpen] = React.useState(false);
+  const [orderData, setOrderData] = useState([]);
+  
+  const getOrderData = () => {
+    Axios.get("http://localhost:5000/work-orders/get-orders").then((response) => {
+      setOrderData(response.data);
+    });
+  };
+
+  const [products, setProduct] = useState([]);
+  
+  const getProducts = () => {
+    Axios.get("http://localhost:5000/products/get-products").then((response) => {
+      setProduct(response.data);
+    });
+  };
+
+  const [orderCompletions, setOrderCompletion] = useState([]);
+
+  // retrieves all of the completions that have been completed for a specific order.
+  const getAllOrderCompletions = () => {
+    Axios.get("http://localhost:5000/completions/get-order-completions", { params: { num: order.wo_number }})
+    .then((response) => {
+      console.log("hoopla", response.data);
+      setOrderCompletion(response.data);
+    });
+  }
+
+  const [orderDefects, setOrderDefect] = useState([]);
+
+  // retrieves all of the scraps that have been completed for a specific order.
+  const getAllOrderDefects = () => {
+    Axios.get("http://localhost:5000/scraps/get-order-scraps", { params: { num: order.wo_number }})
+    .then((response) => {
+      console.log("hoopladefects", response.data);
+      setOrderDefect(response.data);
+    });
+  }
+
+  useEffect(() => {
+    getOrderData();
+    getProducts();
+    getAllOrderCompletions();
+    getAllOrderDefects();
+  }, []);
+
+  // gets the products label that corresponds to a part number.
+  // order is the supplied part number.
+  const getLabel = (order) => {
+    if (order === undefined) return "";
+    const prod = products.find(({ part_number }) => part_number === order);
+    if (prod === undefined) return ""; 
+    return prod.label;
+  }
+
+  // formats numbers with a comma delimeter
+  function formatNumber(number) {
+    var nf = new Intl.NumberFormat();
+    return nf.format(number); // "1,234,567,890"
+  }
+
+  // calculates the sum of all completions` for a specific work order
+  function sumCompletions() {
+    var sum = 0;
+    orderCompletions.map((order) => (
+      sum += order.quantity ))
+    
+    return formatNumber(sum);
+  }
+
+  // calculates the sum of all defects for a specific work order
+  function sumDefects() {
+    var sum = 0;
+    orderDefects.map((order) => (
+      sum += order.quantity ))
+    
+    return formatNumber(sum);
+  }
 
   return (
-    <React.Fragment>
+    <>
       <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
         <TableCell>
           <IconButton
@@ -45,80 +102,46 @@ function Row(props) {
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
-        <TableCell component="th" scope="row">
-          {row.name}
+        <TableCell component="th" scope="order">
+          WO - {order.wo_number}
         </TableCell>
-        <TableCell align="right">{row.calories}</TableCell>
-        <TableCell align="right">{row.fat}</TableCell>
-        <TableCell align="right">{row.carbs}</TableCell>
-        <TableCell align="right">{row.protein}</TableCell>
+        <TableCell align="left">{getLabel(order.product_number)}</TableCell>
+        <TableCell align="left">{formatNumber(order.wo_quantity)}</TableCell>
+        <TableCell align="left">{sumCompletions()}</TableCell>
+        <TableCell align="left">{sumDefects()}</TableCell>
       </TableRow>
       <TableRow>
-        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan = {6}>
+        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colspan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
-            <Box sx={{ margin: 1 }}>
-              <Typography variant="h6" gutterBottom component="div">
-                History
-              </Typography>
-              <Table size="small" aria-label="purchases">
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Date</TableCell>
-                    <TableCell>Operator</TableCell>
-                    <TableCell align="right">Amount</TableCell>
-                    <TableCell align="right">Total price ($)</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {row.history.map((historyRow) => (
-                    <TableRow key={historyRow.date}>
-                      <TableCell component="th" scope="row">
-                        {historyRow.date}
-                      </TableCell>
-                      <TableCell>{historyRow.customerId}</TableCell>
-                      <TableCell align="right">{historyRow.amount}</TableCell>
-                      <TableCell align="right">
-                        {Math.round(historyRow.amount * row.price * 100) / 100}
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </Box>
+            <DropDownTable stage="1" order={order}/>
+            <DropDownTable stage="2" order={order}/>
+            <DropDownTable stage="3" order={order}/>
+            <DropDownTable stage="4" order={order}/>
+            <DropDownTable stage="5" order={order}/>
           </Collapse>
         </TableCell>
       </TableRow>
-    </React.Fragment>
+      </>
   );
 }
 
-Row.propTypes = {
-  row: PropTypes.shape({
-    calories: PropTypes.number.isRequired,
-    carbs: PropTypes.number.isRequired,
-    fat: PropTypes.number.isRequired,
-    history: PropTypes.arrayOf(
-      PropTypes.shape({
-        amount: PropTypes.number.isRequired,
-        customerId: PropTypes.string.isRequired,
-        date: PropTypes.string.isRequired,
-      }),
-    ).isRequired,
-    name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    protein: PropTypes.number.isRequired,
-  }).isRequired,
-};
-
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0, 3.99),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3, 4.99),
-  createData('Eclair', 262, 16.0, 24, 6.0, 3.79),
-  createData('Cupcake', 305, 3.7, 67, 4.3, 2.5),
-  createData('Gingerbread', 356, 16.0, 49, 3.9, 1.5),
-];
-
 export default function OrderTable() {
+  /* creating a react state hook, calling a GET api request to backend, then
+  /  adding response data to the work orders array variable. This is used to view
+  /  all of the work orders in the dropdown menu.*/
+  const [workOrders, setOrder] = useState([]);
+  
+  const getOrders = () => {
+    Axios.get("http://localhost:5000/work-orders/get-orders").then((response) => {
+      setOrder(response.data);
+    });
+  };
+
+  console.log(workOrders);
+  useEffect(() => {
+    getOrders();
+  }, []);
+
   return (
     <div className="table">
     <TableContainer  component={Paper}>
@@ -127,15 +150,15 @@ export default function OrderTable() {
           <TableRow>
             <TableCell />
             <TableCell style={{ color: '#ffffff' }}>WO Number</TableCell>
-            <TableCell style={{ color: '#ffffff' }} align="right">Product</TableCell>
-            <TableCell style={{ color: '#ffffff' }} align="right">Quantity&nbsp;</TableCell>
-            <TableCell style={{ color: '#ffffff' }} align="right">Completed&nbsp;</TableCell>
-            <TableCell style={{ color: '#ffffff' }} align="right">Defects&nbsp;</TableCell>
+            <TableCell style={{ color: '#ffffff' }} align="left">Product</TableCell>
+            <TableCell style={{ color: '#ffffff' }} align="left">Quantity</TableCell>
+            <TableCell style={{ color: '#ffffff' }} align="left">Completed</TableCell>
+            <TableCell style={{ color: '#ffffff' }} align="left">Defects</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <Row key={row.name} row={row} />
+          {workOrders.map((order) => (
+            <Row key={order.wo_number} order={order}/>
           ))}
         </TableBody>
       </Table>
