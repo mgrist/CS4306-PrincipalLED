@@ -7,6 +7,8 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import './defect.css';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import Axios from "axios";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -66,6 +68,12 @@ export default function CustomizedTables() {
             > 
               Description
             </StyledTableCell>
+            <StyledTableCell 
+            align='left' 
+            style={{ borderRight: '0.3px solid #879D9E'}}
+            > 
+              Action
+            </StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -87,6 +95,12 @@ export default function CustomizedTables() {
               >
                 {defect.description}
               </StyledTableCell>
+              <StyledTableCell 
+              style={{ borderRight: '0.3px solid #879D9E' }} 
+              component="th" 
+              align='left'
+              ><EditIcon/><DeleteForeverIcon/></StyledTableCell>
+            
             </StyledTableRow>
           ))}
         </TableBody>

@@ -7,6 +7,8 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import './product.css';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import Axios from "axios";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -77,6 +79,13 @@ export default function CustomizedTables() {
                Assemblie 
             </StyledTableCell>
             <StyledTableCell align='left'> Label </StyledTableCell>
+            <StyledTableCell 
+            align='left' 
+            style={{ borderRight: '0.3px solid #879D9E'}}
+            > 
+              Action
+            </StyledTableCell>
+
           </TableRow>
         </TableHead>
         <TableBody>
@@ -99,7 +108,16 @@ export default function CustomizedTables() {
               <StyledTableCell align='left'>
                 {product.label}
               </StyledTableCell>
+
+              <StyledTableCell 
+              style={{ borderRight: '0.3px solid #879D9E' }} 
+              component="th" 
+              align='left'
+              ><EditIcon/><DeleteForeverIcon/></StyledTableCell>
+
+
             </StyledTableRow>
+            
           ))}
         </TableBody>
       </Table>
