@@ -1,7 +1,6 @@
 import { React, useState, useEffect } from 'react';
 import Axios from "axios";
-import PropTypes from 'prop-types';
-import { Box, Collapse, IconButton, Table, TableBody, Typography } from '@mui/material';
+import { Collapse, IconButton, Table, TableBody } from '@mui/material';
 import { TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
@@ -12,16 +11,7 @@ export function Row(props) {
   const { order } = props;
   const [open, setOpen] = useState(false);
 
-  const [orderData, setOrderData] = useState([]);
-  
-  const getOrderData = () => {
-    Axios.get("http://localhost:5000/work-orders/get-orders").then((response) => {
-      setOrderData(response.data);
-    });
-  };
-
   const [products, setProduct] = useState([]);
-  
   const getProducts = () => {
     Axios.get("http://localhost:5000/products/get-products").then((response) => {
       setProduct(response.data);
@@ -29,29 +19,24 @@ export function Row(props) {
   };
 
   const [orderCompletions, setOrderCompletion] = useState([]);
-
   // retrieves all of the completions that have been completed for a specific order.
   const getAllOrderCompletions = () => {
     Axios.get("http://localhost:5000/completions/get-order-completions", { params: { num: order.wo_number }})
     .then((response) => {
-      console.log("hoopla", response.data);
       setOrderCompletion(response.data);
     });
   }
 
   const [orderDefects, setOrderDefect] = useState([]);
-
   // retrieves all of the scraps that have been completed for a specific order.
   const getAllOrderDefects = () => {
     Axios.get("http://localhost:5000/scraps/get-order-scraps", { params: { num: order.wo_number }})
     .then((response) => {
-      console.log("hoopladefects", response.data);
       setOrderDefect(response.data);
     });
   }
 
   useEffect(() => {
-    getOrderData();
     getProducts();
     getAllOrderCompletions();
     getAllOrderDefects();
@@ -111,13 +96,9 @@ export function Row(props) {
         <TableCell align="left">{sumDefects()}</TableCell>
       </TableRow>
       <TableRow>
-        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colspan={6}>
+        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
-            <DropDownTable stage="1" order={order}/>
-            <DropDownTable stage="2" order={order}/>
-            <DropDownTable stage="3" order={order}/>
-            <DropDownTable stage="4" order={order}/>
-            <DropDownTable stage="5" order={order}/>
+            <DropDownTable order={order}/>
           </Collapse>
         </TableCell>
       </TableRow>

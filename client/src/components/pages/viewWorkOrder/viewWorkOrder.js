@@ -9,6 +9,8 @@ import TableRow from '@mui/material/TableRow';
 import './viewWorkOrder.css';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import { ButtonGroup, Button } from '@mui/material';
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Axios from "axios";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -21,6 +23,15 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     fontSize: 14
   },
 }));
+
+// setting theme with the action buttons
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#000000",
+    },
+  },
+});
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   '&:nth-of-type(odd)': {
@@ -36,6 +47,23 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 function formatNumber(number) {
   var nf = new Intl.NumberFormat();
   return nf.format(number); // "1,234,567,890"
+}
+
+export function ActionButtons() {
+  return (
+    <ThemeProvider theme={theme}>
+    <StyledTableCell 
+    style={{ borderRight: '0.3px solid #879D9E' }} 
+    component="th" 
+    align='center'
+    >
+      <ButtonGroup disableElevation color="primary" variant="text">
+        <Button><EditIcon/></Button>
+        <Button><DeleteForeverIcon/></Button>
+      </ButtonGroup>
+    </StyledTableCell>
+    </ThemeProvider>
+  );
 }
 
 export default function CustomizedTables() {
@@ -99,10 +127,15 @@ export default function CustomizedTables() {
             >
                Quantity 
             </StyledTableCell>
-            <StyledTableCell align='left' key="prod"> Product </StyledTableCell>
-
             <StyledTableCell 
             align='left' 
+            key="prod"
+            style={{ borderRight: '0.3px solid #879D9E'}}> 
+              Product 
+            </StyledTableCell>
+
+            <StyledTableCell 
+            align='center' 
             style={{ borderRight: '0.3px solid #879D9E'}}
             > 
               Action
@@ -131,15 +164,11 @@ export default function CustomizedTables() {
                 {formatNumber(order.wo_quantity)}
               </StyledTableCell>
 
-              <StyledTableCell align='left' key={i}>
+              <StyledTableCell align='left' key={i} style={{ borderRight: '0.3px solid #879D9E'}}>
                 {order.product_number}: &nbsp;{getLabel(order.product_number)}
               </StyledTableCell>
 
-              <StyledTableCell 
-              style={{ borderRight: '0.3px solid #879D9E' }} 
-              component="th" 
-              align='left'
-              ><EditIcon/><DeleteForeverIcon/></StyledTableCell>
+              <ActionButtons/>
             </StyledTableRow>
           ))}
         </TableBody>

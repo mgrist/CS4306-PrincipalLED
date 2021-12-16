@@ -13,6 +13,18 @@ export const getReasons = async (req, res) =>  {
     }
 }
 
+// gets the specified scrap reason based on an id passed in
+export const getReasonId = async (req, res) =>  {
+    try {
+        const id = req.query.id;
+        const reason = await ScrapReason.findById(id);
+        
+        res.status(200).json(reason);
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+}
+
 // creates a new reason and adds it to scrap reason collection
 // also outputs added reason as json.
 export const createReason = async (req, res) => {

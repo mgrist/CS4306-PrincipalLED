@@ -4,7 +4,7 @@ import workOrder from "../models/workOrder.js";
 // gets all the work orders from workOrder table, returns as json.
 export const getOrders = async (req, res) =>  {
     try {
-        const workOrders = await workOrder.find();
+        const workOrders = await workOrder.find().sort({wo_number: -1});
         
         res.status(200).json(workOrders);
     } catch (error) {

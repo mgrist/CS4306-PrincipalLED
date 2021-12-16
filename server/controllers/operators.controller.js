@@ -13,6 +13,18 @@ export const getOperators = async (req, res) =>  {
     }
 }
 
+// gets the operator based on their initials, returns as json.
+export const getOperatorName = async (req, res) =>  {
+    try {
+        const init = req.query.init;
+        const operators = await Operator.findOne({ initials: init });
+        
+        res.status(200).json(operators);
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+}
+
 // creates a new operator and adds it to operator collection
 // also outputs added stage as json.
 export const createOperator = async (req, res) => {

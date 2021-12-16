@@ -9,6 +9,8 @@ import TableRow from '@mui/material/TableRow';
 import './operator.css';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import { ButtonGroup, Button } from '@mui/material';
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Axios from "axios";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -31,6 +33,31 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     border: 0,
   },
 }));
+
+// setting theme with the action buttons
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#000000",
+    },
+  },
+});
+
+export function ActionButtons() {
+  return (
+    <ThemeProvider theme={theme}>
+    <StyledTableCell  
+    component="th" 
+    align='center'
+    >
+      <ButtonGroup disableElevation color="primary" variant="text">
+        <Button><EditIcon/></Button>
+        <Button><DeleteForeverIcon/></Button>
+      </ButtonGroup>
+    </StyledTableCell>
+    </ThemeProvider>
+  );
+}
 
 export default function CustomizedTables() {
   /* creating a react state hook, calling a GET api request to backend, then
@@ -68,10 +95,12 @@ export default function CustomizedTables() {
               Last Name
             </StyledTableCell>
             
-            <StyledTableCell align='left'> Initials </StyledTableCell>
+            <StyledTableCell align='left' style={{ borderRight: '0.3px solid #879D9E'}}>
+               Initials 
+            </StyledTableCell>
             
             <StyledTableCell 
-            align='left' 
+            align='center' 
             style={{ borderRight: '0.3px solid #879D9E'}}
             > 
               Action
@@ -98,15 +127,11 @@ export default function CustomizedTables() {
                 {operator.last_name}
               </StyledTableCell>
 
-              <StyledTableCell align='left'>
+              <StyledTableCell align='left' style={{ borderRight: '0.3px solid #879D9E' }}>
                 {operator.initials}
               </StyledTableCell>
 
-              <StyledTableCell 
-              style={{ borderRight: '0.3px solid #879D9E' }} 
-              component="th" 
-              align='left'
-              ><EditIcon/><DeleteForeverIcon/></StyledTableCell>
+              <ActionButtons/>
 
             </StyledTableRow>
           ))}

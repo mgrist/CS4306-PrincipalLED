@@ -13,7 +13,7 @@ export const getScraps = async (req, res) =>  {
     }
 }
 
-// gets all the scrap scraps from scrap collection, returns as json.
+// gets all the scraps with a specific order number from scrap collection, returns as json.
 export const getOrderScraps = async (req, res) =>  {
     try {
         const orderNum = req.query.num;

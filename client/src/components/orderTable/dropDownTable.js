@@ -1,72 +1,98 @@
 import { React, useState, useEffect } from 'react';
 import Axios from "axios";
-import { Box, Collapse, IconButton, Table, TableBody, Typography } from '@mui/material';
-import { TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
+import { Box, Table, TableBody, Typography } from '@mui/material';
+import { TableCell, TableHead, TableRow } from '@mui/material';
 import './orderTable.css';
 
-export default function DropDownTable(props) {
-    var title = '';
-    const {stage, order} = props;
+export function Cell(props) {
+    const {reasonId} = props;
 
-    const [orderData, setOrderData] = useState([]);
-    const getOrderData = () => {
-        Axios.get("http://localhost:5000/work-orders/get-orders").then((response) => {
-        setOrderData(response.data);
-        });
-    };
-
-    const [orderCompletions, setOrderCompletion] = useState([]);
-    // retrieves all of the completions that have been completed for a specific order.
-    const getAllOrderCompletions = () => {
-        Axios.get("http://localhost:5000/completions/get-order-completions", { params: { num: order.wo_number }})
+    const [reason, setReason] = useState('');  
+    // retrieves all of the operators.
+    const getReason = () => {
+        Axios.get("http://localhost:5000/reasons/get-reason-id", { params: { id: reasonId }})
         .then((response) => {
-            setOrderCompletion(response.data);
+            setReason(response.data.label);
+            console.log("reason", response.data);
+        });
+        return;
+    }
+
+    useEffect(() => {
+        getReason();
+      }, []);
+    
+    return (
+        <TableCell> {reason} </TableCell>
+    );
+}
+
+export default function DropDownTable(props) {
+    const {order} = props;
+
+    const [defects, setDefects] = useState([]);
+    // retrieves all of the defects that have been completed for a specific order.
+    const getDefects = () => {
+        Axios.get("http://localhost:5000/scraps/get-order-scraps", { params: { num: order.wo_number }})
+        .then((response) => {
+            setDefects(response.data);
+            console.log("defects", response.data);
         });
     }
 
-    const [OpCompletions, setOpCompletion] = useState([]);
-    // retrieves all of the completions that have been completed for a specific order.
-    const getOpCompletions = () => {
-        Axios.get("http://localhost:5000/completions/get-op-completions", { 
-            params: { initials: order.wo_number, s: stage }})
+    const [ops, setOps] = useState([]);
+    // retrieves all of the operators.
+    const getOps = () => {
+        Axios.get("http://localhost:5000/operators/get-operators")
         .then((response) => {
-            console.log("Op", response.data);
-            setOpCompletion(response.data);
+            setOps(response.data);
         });
     }
 
     useEffect(() => {
-        getOpCompletions();
-        getOrderData();
+        getDefects();
+        getOps();
       }, []);
 
-    if (stage == "1") title = "S1 - SMT";
-    else if (stage == "2") title = "S2 - Soldering";
-    else if (stage == "3") title = "S3 - L&I Molding";
-    else if (stage == "4") title = "S4 - Taping";
-    else if (stage == "5") title = "S5 - Packaging";
+    const getOpName = (defect) => {
+        const operator = ops.find(({ initials }) => initials === defect.operator_initials);
+        if (operator === "" || operator === undefined) return "";
+        let name = operator.first_name + " " + operator.last_name;
+        return name;
+    }
+    
+    const getStageName = (stage) => {
+        let name = "";
+        if (stage === 1) name = "SMT";
+        else if (stage === 2) name = "Soldering";
+        else if (stage === 3) name = "L&I Molding";
+        else if (stage === 4) name = "Taping";
+        else if (stage === 5) name = "Packaging";
+        
+        return name;
+    }
 
     return (
         <Box sx={{ margin: 1 }}>
             <Typography variant="h6" gutterBottom component="div">
-                {title}
+                Order Defects
             </Typography>
             <Table size="small" aria-label="purchases">
                 <TableHead>
                     <TableRow>
                         <TableCell>Operator</TableCell>
+                        <TableCell>Stage</TableCell>
+                        <TableCell>Defect Type</TableCell>
                         <TableCell align="right">Amount</TableCell>
-                        <TableCell align="right">Total price ($)</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {orderData.map((history) => (
-                        <TableRow key={history.updated_at}>
-                            <TableCell>{history.wo_number}</TableCell>
-                            <TableCell align="right">{history.quantity}</TableCell>
-                            <TableCell align="right">
-                                {5.00}
-                            </TableCell>
+                    {defects.map((defect, index) => (
+                        <TableRow key={index}>
+                            <TableCell> {getOpName(defect)} - {defect.operator_initials} </TableCell>
+                            <TableCell> S{defect.stage_id} - {getStageName(defect.stage_id)} </TableCell>
+                            <Cell reasonId={defect.scrap_reason_id}/>
+                            <TableCell align="right"> {defect.quantity} </TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
