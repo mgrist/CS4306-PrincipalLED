@@ -26,7 +26,7 @@ function ControlledCheckbox() {
     return (
       <FormControl component="fieldset">
         <FormLabel component="legend">Stages</FormLabel>
-        <FormGroup aria-label="position" column>
+        <FormGroup aria-label="position">
 
           <FormControlLabel
             value="end"

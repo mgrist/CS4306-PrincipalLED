@@ -2,61 +2,27 @@
     position: relative;
     display: flex;
     flex-wrap: wrap;
-    align-items: flex-end;
+    align-items: center;
     align-content: space-between;
-    width: 98%;
-    height: 800px;
-    margin-left: 1%;
-    padding-top: 20px;
-
+    margin-top: 2%;
+    margin-left: auto;
+    margin-right: auto;
+    height: 100%;
+    width: 80%;
 }
 
-.middle{
-    text-align: center;
-    width: 98%;
-    position: relative;
-    padding-top: 1%;
-    margin-left: 1%;
-    
+.btn:hover {
+    color: white;
+    background-color: #40913c;
 }
 
-.right{
-    position: relative;
-    height: 350px;
-    width: 33%;
-    margin-bottom: 15%;
-    margin-left: 0%;
-}
-
-.btn:active {
-    background-color: #53BA4D;    
-}
-
-.left{
-    position: relative;
-    height: 350px;
+.item{
+    margin-left: auto;
     width: 25%;
-    margin-left: 1%;
-    margin-bottom: 15%;
-}
-
-.middleTime{
-    position: relative;
-    width: 32%;
-    height: 350px;
-    margin-left: 9%;
-    margin-right: auto ;
-    margin-bottom: 8%;
 }
 
 .btn{
-    position: relative;
-    margin-left: 900px;
-    margin-top: 1%;
-    width: 220px;
-    border-color: darkblue;
-}
-
-.test {
-    display: flex;
+    width: 100%;
+    color: white;
+    background-color: #53BA4D;
 }

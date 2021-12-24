@@ -107,7 +107,6 @@ export default function AppBar() {
     const [bttn, setBttn] = useState(Math.random());
     function ForceUpdate() {
         setBttn(bttn => Math.random());
-        console.log(bttn);
     }
 
     // determines which buttons to render on screen based on current path

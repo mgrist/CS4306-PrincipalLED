@@ -12,6 +12,7 @@ export default function BasicDateRangePicker() {
     return (
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <DateRangePicker
+          calendars={1}
           startText="Date start"
           endText="Date end"
           value={value}
@@ -20,12 +21,12 @@ export default function BasicDateRangePicker() {
           }}
           renderInput={(startProps, endProps) => (
             <React.Fragment>
-                <Box className="middleTime">
-                <Box>
-              <TextField {...startProps} />
+              <Box>
+              <Box style={{marginBottom: '2px'}}>
+                <TextField {...startProps} />
               </Box>
                 <center>to</center> 
-              <Box>
+              <Box style={{marginTop: '8px'}}> 
               <TextField {...endProps} />
               </Box>
               </Box>

@@ -1,36 +1,80 @@
 import Button from '@restart/ui/esm/Button';
-import { React, useState } from 'react';
+import { React, useEffect, useState } from 'react';
 import { BrowserRouter as Router, Link } from "react-router-dom";
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Paper } from '@mui/material';
+import Axios from "axios";
 import './report.css';
 import BasicDateRangePicker from './datePicker/datePicker';
 import FormControlLabelPosition from './checkbox/checkbox';
 
+export default function SearchReport() {
+  /* creating a react state hook, calling a GET api request to backend, then
+  /  adding response data to the products array variable. This is used to view
+  /  all of the products in multiple select box.*/
+  const [products, setProduct] = useState([]);
+  const getProducts = () => {
+    Axios.get("http://localhost:5000/products/get-products").then((response) => {
+      console.log("products", response.data);
+      setProduct(response.data);
+    });
+  };
+  
+  useEffect(() => {
+    getProducts();
+  }, []);
 
+  // This does nothing, but re-renders page
+  const [bttn, setBttn] = useState(Math.random());
+  function ForceUpdate() {
+      setBttn(bttn => Math.random());
+  }
+  function ViewButton(props){
+      return(
+        <div style={{ marginLeft: 'auto', marginRight: 'auto', width: '15%' }}>
+         <Link to="/report">
+            <Button 
+            color="secondary"
+            className='btn'
+            onClick={ForceUpdate}
+            >
+              View&nbsp;<VisibilityIcon/>
+            </Button>
+          </Link>     
+        </div>                                
+      );
+  }
 
-//This will be removed. Temporary product name for static data
-const names = [
-  'Oliver Hansen',
-  'Van Henry',
-  'April Tucker',
-  'Ralph Hubbard',
-  'Omar Alexander',
-  'Carlos Abbott',
-  'Miriam Wagner',
-  'Bradley Wilkerson',
-  'Virginia Andrews',
-  'Kelly Snyder',
-];
+  return (
+    <>
+      <h3 className='paper'>Generate Report</h3>
+      <div className='paper' >                   
+          <div className='item' style={{ marginLeft: 'unset' }}>
+            <MultipleSelectNative prods={products}/>
+          </div>
+          
+          <div className='item' >
+            <BasicDateRangePicker/>
+          </div>
+          
+          <div className='item' style={{ width: '13%'}}>
+            <FormControlLabelPosition />
+          </div>
+      </div>
+      <div className='paper'>
+        <ViewButton/>
+      </div>
+    </>
+  );
+}
 
-
-//need to fix in css
-//temp: left border css for checking space
-function MultipleSelectNative() {
-  const [personName, setPersonName] = useState([]);
+export function MultipleSelectNative(props) {
+  const productLabels = props.prods;
+  
+  const [prodList, setProdList] = useState([]);
   const handleChangeMultiple = (event) => {
     const { options } = event.target;
     const value = [];
@@ -39,20 +83,16 @@ function MultipleSelectNative() {
         value.push(options[i].value);
       }
     }
-    setPersonName(value);
+    setProdList(value);
   };
   
-
   return (
     <div>
-      <FormControl className = "border" sx={{ m: 15, minWidth: 120, maxWidth: 300, height: 200}}>
-        <InputLabel shrink htmlFor="select-multiple-native">
-          Products
-        </InputLabel>
+      <FormControl style={{width: '100%'}}>
         <Select
           multiple
           native
-          value={personName}
+          value={prodList}
           // @ts-ignore Typings are not considering `native`
           onChange={handleChangeMultiple}
           label="Native"
@@ -60,9 +100,9 @@ function MultipleSelectNative() {
             id: 'select-multiple-native',
           }}
         >
-          {names.map((name) => (
-            <option key={name} value={name}>
-              {name}
+          {productLabels.map((product) => (
+            <option key={product.part_number} value={product.label}>
+              {product.label}
             </option>
           ))}
         </Select>
@@ -71,47 +111,4 @@ function MultipleSelectNative() {
     </div>
   );
 
-}
-
-export default function SearchReport() {
-
-  // This does nothing, but re-renders page
-  const [bttn, setBttn] = useState(Math.random());
-  function ForceUpdate() {
-      setBttn(bttn => Math.random());
-  }
-  function ViewButton(props){
-      return(                                    
-              <Link to = "/report">
-                  <Button 
-                  color="secondary"
-                  className='btn'
-                  
-                  onClick={ForceUpdate}
-                  >
-                      View                
-                  <VisibilityIcon/>
-                  </Button>
-              </Link>     
-      );
-  }
-
-  return (
-      <div className='paper' >                   
-          <h3 className='middle' >Add Completions</h3>
-          <div className='left' >
-                  <MultipleSelectNative/>
-          </div>
-          <div className='middleTime' >
-                  <BasicDateRangePicker/>
-                  </div>
-                  <div className='right' >
-                  <FormControlLabelPosition />
-
-          </div>
-
-          <ViewButton/>
-      </div>
-
-  );
 }
