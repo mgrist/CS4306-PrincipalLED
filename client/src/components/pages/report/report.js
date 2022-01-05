@@ -52,7 +52,8 @@ export default function SearchReport() {
     <>
       <h3 className='paper'>Generate Report</h3>
       <div className='paper' >                   
-          <div className='item' style={{ marginLeft: 'unset' }}>
+          <div className='item' style={{ marginLeft: 'unset'}}>
+            <h6 className='title'>Products</h6>
             <MultipleSelectNative prods={products}/>
           </div>
           
@@ -64,7 +65,7 @@ export default function SearchReport() {
             <FormControlLabelPosition />
           </div>
       </div>
-      <div className='paper'>
+      <div className='paper' style={{marginTop: '5%'}}>
         <ViewButton/>
       </div>
     </>
@@ -73,7 +74,7 @@ export default function SearchReport() {
 
 export function MultipleSelectNative(props) {
   const productLabels = props.prods;
-  
+
   const [prodList, setProdList] = useState([]);
   const handleChangeMultiple = (event) => {
     const { options } = event.target;
@@ -88,17 +89,17 @@ export function MultipleSelectNative(props) {
   
   return (
     <div>
-      <FormControl style={{width: '100%'}}>
+      <FormControl style={{height: '100%'}} sx={{minWidth: 260, maxWidth: 300}}>
         <Select
           multiple
           native
           value={prodList}
-          // @ts-ignore Typings are not considering `native`
-          onChange={handleChangeMultiple}
-          label="Native"
           inputProps={{
             id: 'select-multiple-native',
           }}
+          onChange={handleChangeMultiple}
+          style={{height: '250px', width: '100%'}}
+          color='success'
         >
           {productLabels.map((product) => (
             <option key={product.part_number} value={product.label}>

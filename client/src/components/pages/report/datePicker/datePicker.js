@@ -4,7 +4,7 @@ import DateRangePicker from '@mui/lab/DateRangePicker';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import Box from '@mui/material/Box';
-import './datePicker.css';
+import '../report.css';
 
 export default function BasicDateRangePicker() {
     const [value, setValue] = React.useState([null, null]);
@@ -20,17 +20,20 @@ export default function BasicDateRangePicker() {
             setValue(newValue);
           }}
           renderInput={(startProps, endProps) => (
+            <div style={{height: '100%'}}>
+            <h6 className='title'>Time Frame</h6>
             <React.Fragment>
               <Box>
               <Box style={{marginBottom: '2px'}}>
-                <TextField {...startProps} />
+                <TextField color='success' {...startProps} />
               </Box>
                 <center>to</center> 
               <Box style={{marginTop: '8px'}}> 
-              <TextField {...endProps} />
+                <TextField color='success' {...endProps} />
               </Box>
               </Box>
             </React.Fragment>
+            </div>
           )}
         />
       </LocalizationProvider>

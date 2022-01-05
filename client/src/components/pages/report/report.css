@@ -2,7 +2,7 @@
     position: relative;
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
+    align-items: flex-start;
     align-content: space-between;
     margin-top: 2%;
     margin-left: auto;
@@ -25,4 +25,8 @@
     width: 100%;
     color: white;
     background-color: #53BA4D;
+}
+
+.title {
+    color: #666666;
 }
