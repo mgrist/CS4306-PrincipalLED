@@ -1,11 +1,9 @@
 import Button from '@restart/ui/esm/Button';
 import { React, useEffect, useState } from 'react';
 import { BrowserRouter as Router, Link } from "react-router-dom";
-import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import { Paper } from '@mui/material';
 import Axios from "axios";
 import './report.css';
 import BasicDateRangePicker from './datePicker/datePicker';
@@ -28,10 +26,11 @@ export default function SearchReport() {
   }, []);
 
   // This does nothing, but re-renders page
-  const [bttn, setBttn] = useState(Math.random());
+  const [bttn, setBttn] = useState(0);
   function ForceUpdate() {
       setBttn(bttn => Math.random());
   }
+
   function ViewButton(props){
       return(
         <div style={{ marginLeft: 'auto', marginRight: 'auto', width: '15%' }}>

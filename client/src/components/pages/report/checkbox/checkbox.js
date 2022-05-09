@@ -1,95 +1,112 @@
 import * as React from 'react';
+import Box from '@mui/material/Box';
 import Checkbox from '@mui/material/Checkbox';
-import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import '../report.css';
 
-export function ControlledCheckbox(props) {
-    const val = props.value;
-    const [checked, setChecked] = React.useState(true);
-  
-    const handleChange = (event) => {
-      setChecked(event.target.checked);
-      // if the select all box is clicked
-      if (event.target.value === 0) {
-        // if box is ticked
-        if (event.target.checked === true) {
-          // set all boxes to ticked
-        }
-        // if box is unticked
-        else {
-          // set all boxes to unticked
-        }
-      }
-      else {
-        // if box is ticked
-        if (event.target.checked === true) {
-          // set box to ticked
-        }
-        // if box is unticked
-        else {
-          // set box to unticked
-        }
-      }
-    };
-  
-    return (
-      <Checkbox
-        label="hello"
-        value={val}
-        color="success"
-        checked={checked}
-        onChange={handleChange}
-        inputProps={{ 'aria-label': 'controlled' }}
-      />
-    );
-  }
+export default function IndeterminateCheckbox() {
+  const [checked, setChecked] = React.useState([true, true, true, true, true]);
+  const isAllSelected = checked[0] && checked[1] && checked[2] && checked[3] && checked[4];
+  const isNoneSelected = !checked[0] && !checked[1] && !checked[2] && !checked[3] && !checked[4];
 
-  export default function FormControlLabelPosition() {
-    var [selected, setSelected] = React.useState([]);
-    return (
+  const handleChange = (event) => {
+    let check = event.target.checked;
+    let val = event.target.value;
+
+    // select all box
+    if (val === "all") {
+      setChecked([check, check, check, check, check]);
+    }
+    else if (val === "SMT") {
+      setChecked([check, checked[1], checked[2], checked[3], checked[4]]);
+    }
+    else if (val === "solder") {
+      setChecked([checked[0], check, checked[2], checked[3], checked[4]]);
+    }
+    else if (val === "LAIM") {
+      setChecked([checked[0], checked[1], check, checked[3], checked[4]]);
+    }
+    else if (val === "tape") {
+      setChecked([checked[0], checked[1], checked[2], check, checked[4]]);
+    }
+    else {
+      setChecked([checked[0], checked[1], checked[2], checked[3], check]);
+    }
+  };
+
+  return (
+    <div>
       <FormControl component="fieldset">
         <h6 className='title'>Stages</h6>
-        <FormGroup aria-label="position">
-
-          <FormControlLabel
-            value={0}
-            control={<ControlledCheckbox value={0}/>}
-            label="Select All"
-            labelPlacement="end"
-          />
-          <FormControlLabel
-            value={1}
-            control={<ControlledCheckbox value={1}/>}
-            label="SMT"
-            labelPlacement="end"
-          />
-          <FormControlLabel
-            value={2}
-            control={<ControlledCheckbox value={2}/>}
-            label="Soldering"
-            labelPlacement="end"
-          />
-          <FormControlLabel
-            value={3}
-            control={<ControlledCheckbox value={3}/>}
-            label="Lens & IM"
-            labelPlacement="end"
-          />
-          <FormControlLabel
-            value={4}
-            control={<ControlledCheckbox value={4}/>}
-            label="Taping"
-            labelPlacement="end"
-          />
-          <FormControlLabel
-            value={5}
-            control={<ControlledCheckbox value={5}/>}
-            label="Packaging"
-            labelPlacement="end"
-          />
-        </FormGroup>
+        <FormControlLabel
+          label="Select All"
+          control={
+            <Checkbox
+              checked={isAllSelected}
+              indeterminate={!isNoneSelected && !isAllSelected}
+              value="all"
+              onChange={handleChange}
+              color="success"
+            />
+          }
+        />
+        <FormControlLabel
+          label="SMT"
+          control={
+            <Checkbox 
+              checked={checked[0]}
+              value="SMT"
+              onChange={handleChange}
+              color="success"
+            />
+          }
+        />
+        <FormControlLabel
+          label="Soldering"
+          control={
+            <Checkbox 
+              checked={checked[1]} 
+              value="solder"
+              onChange={handleChange} 
+              color="success"
+            />
+          }
+        />
+        <FormControlLabel
+          label="Lens & IM"
+          control={
+            <Checkbox 
+              checked={checked[2]}
+              value="LAIM"
+              onChange={handleChange} 
+              color="success"
+            />
+          }
+        />
+        <FormControlLabel
+          label="Taping"
+          control={
+            <Checkbox
+              checked={checked[3]}
+              value="tape"
+              onChange={handleChange} 
+              color="success"
+            />
+          }
+        />
+        <FormControlLabel
+          label="Packaging"
+          control={
+            <Checkbox 
+              checked={checked[4]}
+              value="pack"
+              onChange={handleChange} 
+              color="success"
+            />
+          }
+        />
       </FormControl>
-    );
-  }
+    </div>
+  );
+}

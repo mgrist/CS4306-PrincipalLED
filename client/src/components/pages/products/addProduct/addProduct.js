@@ -29,9 +29,6 @@ function Alert(props) {
 
 export default function CompletionForm() {
   const [status, setStatus] = useState('');
-  function ForceUpdate(update) {
-      setStatus(status => update);
-  }
 
   function RenderAlert(props) {
     if (status === "success") {

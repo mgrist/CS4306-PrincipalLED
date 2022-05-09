@@ -7,7 +7,8 @@ import Box from '@mui/material/Box';
 import '../report.css';
 
 export default function BasicDateRangePicker() {
-    const [value, setValue] = React.useState([null, null]);
+    var currDate = new Date();
+    const [value, setValue] = React.useState([currDate, currDate]);
   
     return (
       <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -18,10 +19,11 @@ export default function BasicDateRangePicker() {
           value={value}
           onChange={(newValue) => {
             setValue(newValue);
+            console.log(newValue);
           }}
           renderInput={(startProps, endProps) => (
             <div style={{height: '100%'}}>
-            <h6 className='title'>Time Frame</h6>
+            <h6 className='title' style={{marginBottom: '9%'}}>Time Frame</h6>
             <React.Fragment>
               <Box>
               <Box style={{marginBottom: '2px'}}>

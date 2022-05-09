@@ -104,7 +104,7 @@ export default function AppBar() {
     }
 
     // This does nothing, but re-renders page
-    const [bttn, setBttn] = useState(Math.random());
+    const [bttn, setBttn] = useState(0);
     function ForceUpdate() {
         setBttn(bttn => Math.random());
     }

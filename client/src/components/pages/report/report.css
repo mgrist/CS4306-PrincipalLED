@@ -13,7 +13,7 @@
 
 .btn:hover {
     color: white;
-    background-color: #40913c;
+    background-color: #53BA4D;
 }
 
 .item{
@@ -24,9 +24,10 @@
 .btn{
     width: 100%;
     color: white;
-    background-color: #53BA4D;
+    background-color: #2E7D33;
 }
 
 .title {
     color: #666666;
+    margin-bottom: 5%;
 }
