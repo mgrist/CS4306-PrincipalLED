@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from "react";
+import { React, useState } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Box, TextField, Button } from "@mui/material";
 import Axios from "axios";
@@ -39,7 +39,6 @@ export default function CompletionForm() {
 				</Alert>
 			);
 		} else if (status === "error") {
-			console.log("in Error Alert");
 			return (
 				<Alert className="alert" severity="error">
 					Error: Invalid Input Field(s)
@@ -49,18 +48,6 @@ export default function CompletionForm() {
 			return null;
 		}
 	}
-	/* creating a react state hook, calling a GET api request to backend, then
-  /  adding response data to the stages array variable. This is used to view
-  /  all of the stages in the dropdown menu.*/
-	const getStages = () => {
-		Axios.get("http://localhost:5000/stages/get-stages").then((response) => {
-			setStage(response.data);
-		});
-	};
-
-	useEffect(() => {
-		getStages();
-	}, []);
 
 	const [stage, setStage] = useState({
 		label: "",

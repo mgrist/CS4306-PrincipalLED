@@ -17,7 +17,6 @@ export default function SearchReport() {
 	const getProducts = () => {
 		Axios.get("http://localhost:5000/products/get-products").then(
 			(response) => {
-				console.log("products", response.data);
 				setProduct(response.data);
 			}
 		);
