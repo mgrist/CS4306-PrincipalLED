@@ -27,29 +27,31 @@ export function Row(props) {
 	};
 
 	const [orderCompletions, setOrderCompletion] = useState([]);
-	// retrieves all of the completions that have been completed for a specific order.
-	const getAllOrderCompletions = () => {
-		Axios.get("http://localhost:5000/completions/get-order-completions", {
-			params: { num: order.wo_number },
-		}).then((response) => {
-			setOrderCompletion(response.data);
-		});
-	};
 
 	const [orderDefects, setOrderDefect] = useState([]);
-	// retrieves all of the scraps that have been completed for a specific order.
-	const getAllOrderDefects = () => {
-		Axios.get("http://localhost:5000/scraps/get-order-scraps", {
-			params: { num: order.wo_number },
-		}).then((response) => {
-			setOrderDefect(response.data);
-		});
-	};
 
-	useEffect(() => {
+	useEffect((order) => {
+		// retrieves all of the completions that have been completed for a specific order.
+		const getAllOrderCompletions = () => {
+			Axios.get("http://localhost:5000/completions/get-order-completions", {
+				params: { num: order.wo_number },
+			}).then((response) => {
+				setOrderCompletion(response.data);
+			});
+		};
+
+		// retrieves all of the scraps that have been completed for a specific order.
+		const getAllOrderDefects = () => {
+			Axios.get("http://localhost:5000/scraps/get-order-scraps", {
+				params: { num: order.wo_number },
+			}).then((response) => {
+				setOrderDefect(response.data);
+			});
+		};
+
 		getProducts();
-		getAllOrderCompletions();
 		getAllOrderDefects();
+		getAllOrderCompletions();
 	}, []);
 
 	// gets the products label that corresponds to a part number.
