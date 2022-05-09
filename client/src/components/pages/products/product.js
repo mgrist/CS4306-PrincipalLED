@@ -124,8 +124,8 @@ export default function CustomizedTables() {
 						</TableRow>
 					</TableHead>
 					<TableBody>
-						{products.map((product) => (
-							<StyledTableRow key={product.name}>
+						{products.map((product, i) => (
+							<StyledTableRow key={i}>
 								<StyledTableCell
 									style={{ borderRight: "0.3px solid #879D9E", width: "25%" }}
 									component="th"

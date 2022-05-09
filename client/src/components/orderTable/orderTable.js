@@ -30,7 +30,7 @@ export function Row(props) {
 
 	const [orderDefects, setOrderDefect] = useState([]);
 
-	useEffect((order) => {
+	useEffect(() => {
 		// retrieves all of the completions that have been completed for a specific order.
 		const getAllOrderCompletions = () => {
 			Axios.get("http://localhost:5000/completions/get-order-completions", {
@@ -52,7 +52,7 @@ export function Row(props) {
 		getProducts();
 		getAllOrderDefects();
 		getAllOrderCompletions();
-	}, []);
+	}, [order.wo_number]);
 
 	// gets the products label that corresponds to a part number.
 	// order is the supplied part number.
@@ -130,7 +130,6 @@ export default function OrderTable() {
 		);
 	};
 
-	console.log(workOrders);
 	useEffect(() => {
 		getOrders();
 	}, []);

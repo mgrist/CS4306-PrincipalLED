@@ -10,7 +10,7 @@ export function Cell(props) {
 
 	const [reason, setReason] = useState("");
 
-	useEffect((reasonId) => {
+	useEffect(() => {
 		// retrieves all of the defect reasons.
 		const getReason = () => {
 			Axios.get("http://localhost:5000/reasons/get-reason-id", {
@@ -23,7 +23,7 @@ export function Cell(props) {
 		};
 
 		getReason();
-	}, []);
+	}, [reasonId]);
 
 	return <TableCell> {reason} </TableCell>;
 }
@@ -44,7 +44,7 @@ export default function DropDownTable(props) {
 		);
 	};
 
-	useEffect((order) => {
+	useEffect(() => {
 		// retrieves all of the defects that have been completed for a specific order.
 		const getDefects = () => {
 			Axios.get("http://localhost:5000/scraps/get-order-scraps", {
@@ -57,7 +57,7 @@ export default function DropDownTable(props) {
 
 		getDefects();
 		getOps();
-	}, []);
+	}, [order.wo_number]);
 
 	const getOpName = (defect) => {
 		const operator = ops.find(
